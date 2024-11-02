@@ -1,0 +1,15 @@
+services:
+  users-db:
+    image: postgres:16.1
+    container_name: userDb
+    ports:
+      -"5432":"5432"
+    environment:
+      - POSTGRES_DB=users
+      - POSTGRES_USER=users
+      - POSTGRES_PASSWORD=users
+    healthcheck:
+      test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
+      timeout: 5s
+      interval: 5s
+      retries: 10
