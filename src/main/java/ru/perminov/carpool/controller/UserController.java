@@ -1,15 +1,14 @@
 package ru.perminov.carpool.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.perminov.carpool.dto.UserDto;
 import ru.perminov.carpool.dto.UserDtoOut;
 import ru.perminov.carpool.service.UserService;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public UserDtoOut create (@RequestBody UserDto userDto) {
+    public UserDtoOut create(@Valid @RequestBody UserDto userDto) {
         log.info("Пришел POST запрос {}", userDto);
         return userService.create(userDto);
     }

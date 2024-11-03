@@ -13,13 +13,13 @@ import ru.perminov.carpool.repository.UserRepository;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDtoOut create(UserDto userDto) {
         User user = UserMapper.toEntity(userDto);
         user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
-
-        userRepository.save();
+        userRepository.save(user);
+        return UserMapper.toDto(user);
     }
 }
