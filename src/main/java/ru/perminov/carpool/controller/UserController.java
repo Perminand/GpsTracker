@@ -27,8 +27,11 @@ public class UserController {
         return userService.create(userDto);
     }
 
-    @PreAuthorize()
+    @PreAuthorize("ROLE_ADMIN")
     @GetMapping("/user")
+    public UserDtoOut getAll() {
+        log.info("");
+    }
 
 
     @GetMapping("/welcome")
