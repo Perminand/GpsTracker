@@ -59,4 +59,18 @@ public class AdminController {
         log.info("");
         return roleService.getById(id);
     }
+
+    @PatchMapping("/roles/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Role updateRole(@RequestBody @Valid Role role,
+                           @PathVariable @Min(1) Long id) {
+        log.info("");
+        return roleService.update(role, id);
+    }
+
+    @DeleteMapping("/roles/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteRole(@PathVariable @Min(0) Long id) {
+        roleService.deleteById(id);
+    }
 }
