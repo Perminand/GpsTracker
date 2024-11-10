@@ -16,8 +16,8 @@ drop table IF EXISTS users, roles, user_role;
     PRIMARY KEY (id)
 );
 create TABLE IF NOT EXISTS users_roles (
-    user_id BIGINT REFERENCES users(id),
-    roles_id BIGINT REFERENCES roles(id),
+    user_id BIGINT REFERENCES users(id) ON delete CASCADE,
+    roles_id BIGINT REFERENCES roles(id) ON delete CASCADE,
     PRIMARY KEY (user_id, roles_id)
 );
 

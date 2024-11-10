@@ -27,16 +27,10 @@ public class UserController {
         return userService.create(userDto);
     }
 
-    @PreAuthorize("ROLE_ADMIN")
-    @GetMapping("/user")
-    public UserDtoOut getAll() {
-        log.info("");
+    @GetMapping("/users")
+    public List<UserDtoOut> getAll() {
+        log.info("Пришел GET запрос на получения списка пользователей");
+        return userService.getAll();
     }
 
-
-    @GetMapping("/welcome")
-    public List<UserDto> getAll(){
-        log.info("Пришел GET запрос");
-        return new ArrayList<>();
-    }
 }
