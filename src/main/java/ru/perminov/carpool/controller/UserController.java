@@ -15,16 +15,17 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/apps")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/new-user")
     public UserDtoOut create(@Valid @RequestBody UserDto userDto) {
         log.info("Пришел POST запрос {}", userDto);
         return userService.create(userDto);
     }
+
 
     @GetMapping
     public List<UserDto> getAll(){
