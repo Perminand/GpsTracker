@@ -9,6 +9,8 @@ import ru.perminov.carpool.mapper.UserMapper;
 import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.repository.UserRepository;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
@@ -19,6 +21,7 @@ public class UserServiceImpl implements UserService{
     public UserDtoOut create(UserDto userDto) {
         User user = UserMapper.toEntity(userDto);
         user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
         return UserMapper.toDto(user);
     }
