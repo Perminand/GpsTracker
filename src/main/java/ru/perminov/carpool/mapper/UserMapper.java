@@ -6,11 +6,10 @@ import ru.perminov.carpool.model.User;
 
 public class UserMapper {
     public static User toEntity (UserDto userDto) {
-        return User.builder()
-                .username(userDto.getUsername())
-                .email(userDto.getEmail())
-                .roles(userDto.getRoles())
-                .build();
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        return user;
     }
 
     public static UserDtoOut toDto(User user) {
