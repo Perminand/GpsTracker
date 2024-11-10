@@ -1,14 +1,16 @@
 package ru.perminov.carpool.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data
-@Builder
+@Setter
+@Getter
+@Table(name = "users")
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +27,9 @@ public class User {
 
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Role> roles;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 
 }
