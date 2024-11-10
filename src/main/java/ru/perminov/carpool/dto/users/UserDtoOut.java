@@ -1,4 +1,4 @@
-package ru.perminov.carpool.dto;
+package ru.perminov.carpool.dto.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

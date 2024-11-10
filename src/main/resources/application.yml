@@ -4,7 +4,7 @@ spring:
       name: admin
       password: admin
   datasource:
-    url: jdbc:postgresql://62.109.21.174/users
+    url: jdbc:postgresql://localhost/users
     username: users
     password: users
   output:
@@ -13,7 +13,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

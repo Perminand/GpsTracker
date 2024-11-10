@@ -1,11 +1,9 @@
-package ru.perminov.carpool.dto;
+package ru.perminov.carpool.dto.users;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import ru.perminov.carpool.model.Role;
 
 import java.util.List;
 
@@ -26,6 +24,6 @@ public class UserDto {
 
     @Size(min = 6)
     private String password;
-    private List<Role> roles;
+    private String roles;
 
 }

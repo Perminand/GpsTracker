@@ -3,10 +3,11 @@ package ru.perminov.carpool.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.perminov.carpool.dto.UserDto;
-import ru.perminov.carpool.dto.UserDtoOut;
+import ru.perminov.carpool.dto.users.UserDto;
+import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.service.UserService;
 
 import java.util.ArrayList;
@@ -26,8 +27,11 @@ public class UserController {
         return userService.create(userDto);
     }
 
+    @PreAuthorize()
+    @GetMapping("/user")
 
-    @GetMapping
+
+    @GetMapping("/welcome")
     public List<UserDto> getAll(){
         log.info("Пришел GET запрос");
         return new ArrayList<>();

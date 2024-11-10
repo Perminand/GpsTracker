@@ -1,12 +1,11 @@
 package ru.perminov.carpool.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.perminov.carpool.dto.UserSecurity;
+import ru.perminov.carpool.dto.users.UserSecurity;
 import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.repository.UserRepository;
 

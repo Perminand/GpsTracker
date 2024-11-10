@@ -1,4 +1,4 @@
-package ru.perminov.carpool.dto;
+package ru.perminov.carpool.dto.users;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
