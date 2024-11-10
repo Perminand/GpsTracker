@@ -2,10 +2,13 @@ package ru.perminov.carpool.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Getter
+@Table(name = "roles")
+@NoArgsConstructor
 public class Role implements GrantedAuthority {
 
     @Id
