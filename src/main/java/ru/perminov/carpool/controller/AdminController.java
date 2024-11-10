@@ -1,15 +1,18 @@
 package ru.perminov.carpool.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.perminov.carpool.dto.role.RoleDto;
 import ru.perminov.carpool.dto.users.UserDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
-import ru.perminov.carpool.service.UserService;
+import ru.perminov.carpool.model.Role;
+import ru.perminov.carpool.service.role.RoleService;
+import ru.perminov.carpool.service.user.UserService;
 
 import java.util.List;
 
@@ -20,10 +23,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminController {
     private final UserService userService;
+    private final RoleService roleService;
 
-    @PostMapping("/new-user")
+    @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDtoOut create(@Valid @RequestBody UserDto userDto) {
+    public UserDtoOut createUser(@Valid @RequestBody UserDto userDto) {
         log.info("Пришел POST запрос {}", userDto);
         return userService.create(userDto);
     }
@@ -35,4 +39,24 @@ public class AdminController {
         return userService.getAll();
     }
 
+    @PostMapping("/roles")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Role createRole(@RequestBody @Valid RoleDto roleDto) {
+        log.info("");
+        return roleService.create(roleDto);
+    }
+
+    @GetMapping("/roles")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Role> getAllRoles() {
+        log.info("");
+        return roleService.getAll();
+    }
+
+    @GetMapping("/roles/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Role getAllRoles(@Min(1) @PathVariable Long id) {
+        log.info("");
+        return roleService.getById(id);
+    }
 }
