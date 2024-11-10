@@ -1,4 +1,4 @@
-package ru.perminov.carpool.dto.users;
+package ru.perminov.carpool.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,10 +6,10 @@ import ru.perminov.carpool.model.User;
 
 import java.util.Collection;
 
-public class UserSecurity implements UserDetails {
+public class UserEntitySecurity implements UserDetails {
     private User user;
 
-    public UserSecurity(User user) {
+    public UserEntitySecurity(User user) {
         this.user = user;
     }
 

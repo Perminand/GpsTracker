@@ -1,4 +1,4 @@
-package ru.perminov.carpool.config;
+package ru.perminov.carpool.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import ru.perminov.carpool.service.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -19,7 +18,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new MyUserDetailsService();
+        return new UserSecurityService();
     }
 
     @Bean
