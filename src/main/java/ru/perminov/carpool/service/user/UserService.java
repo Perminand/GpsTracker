@@ -1,4 +1,4 @@
-package ru.perminov.carpool.service;
+package ru.perminov.carpool.service.user;
 
 import ru.perminov.carpool.dto.users.UserDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;

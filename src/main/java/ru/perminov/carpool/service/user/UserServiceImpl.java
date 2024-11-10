@@ -1,4 +1,4 @@
-package ru.perminov.carpool.service;
+package ru.perminov.carpool.service.user;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
