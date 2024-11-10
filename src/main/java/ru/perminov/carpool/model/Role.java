@@ -13,6 +13,10 @@ import org.springframework.security.core.GrantedAuthority;
 @NoArgsConstructor
 public class Role implements GrantedAuthority {
 
+    public Role(String name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

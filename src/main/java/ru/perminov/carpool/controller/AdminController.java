@@ -11,15 +11,14 @@ import ru.perminov.carpool.dto.users.UserDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.service.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("/api/v1/apps")
+@RequestMapping("/api/v1/apps/admin")
 @RequiredArgsConstructor
-public class UserController {
+public class AdminController {
     private final UserService userService;
 
     @PostMapping("/new-user")
@@ -29,8 +28,7 @@ public class UserController {
         return userService.create(userDto);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/admin/users")
+    @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     public List<UserDtoOut> getAll() {
         log.info("Пришел GET запрос на получения списка пользователей");
