@@ -16,9 +16,14 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("/api/v1/apps")
+@RequestMapping("/api/v1/apps/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
+    @GetMapping("/welcome")
+    @ResponseStatus(HttpStatus.OK)
+    public String welcome () {
+        return "Welcome to the unprotected page";
+    }
 }

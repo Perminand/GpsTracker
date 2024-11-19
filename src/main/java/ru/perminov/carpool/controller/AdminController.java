@@ -32,6 +32,15 @@ public class AdminController {
         return userService.create(userDto);
     }
 
+    @PatchMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserDtoOut updateUser(@Valid @RequestBody UserDto userDto, @PathVariable Long id) {
+        log.info("Пришел PATCH запрос на изменение данных");
+        return null;//userService.update(userDto, id);
+    }
+
+    @DeleteMapping("/users/{id}")
+
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     public List<UserDtoOut> getAll() {
@@ -64,7 +73,7 @@ public class AdminController {
     @ResponseStatus(HttpStatus.OK)
     public Role updateRole(@RequestBody @Valid Role role,
                            @PathVariable @Min(1) Long id) {
-        log.info("");
+        log.info("Пришел PATCH запрос на изменение данных");
         return roleService.update(role, id);
     }
 

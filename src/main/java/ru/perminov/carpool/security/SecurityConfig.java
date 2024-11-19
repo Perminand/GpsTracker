@@ -24,9 +24,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1/apps/welcome", "api/v1/apps/new-user").permitAll()
+                .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1/apps/new-user").permitAll()
                         .requestMatchers("/api/v1/apps/admin/**").hasRole("ADMIN")
-                        .requestMatchers("api/v1/apps/users/**").authenticated())
+                        .requestMatchers("/api/v1/apps/users/**").authenticated())
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .build();
     }
@@ -43,6 +43,8 @@ public class SecurityConfig {
         provider.setUserDetailsService(userDetailsService());
         return provider;
     }
+
+
 
 
 }

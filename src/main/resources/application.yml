@@ -4,7 +4,8 @@ spring:
       name: admin
       password: admin
   datasource:
-    url: jdbc:postgresql://localhost/users
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/users
     username: users
     password: users
   output:
@@ -21,3 +22,7 @@ spring:
   sql:
     init:
       mode: always
+sms-server:
+  url: https://smsc.ru/sys/send.php
+  login: perminand
+  password: 8P5SmQYX4qKSGTf
