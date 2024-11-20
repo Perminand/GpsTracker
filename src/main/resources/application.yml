@@ -1,0 +1,28 @@
+spring:
+  security:
+    user:
+      name: admin
+      password: admin
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/users
+    username: users
+    password: users
+  output:
+    ansi:
+      enabled: ALWAYS
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  sql:
+    init:
+      mode: always
+sms-server:
+  url: https://smsc.ru/sys/send.php
+  login: perminand
+  password: 8P5SmQYX4qKSGTf
