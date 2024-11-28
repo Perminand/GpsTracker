@@ -11,6 +11,7 @@ import ru.perminov.carpool.dto.role.RoleDto;
 import ru.perminov.carpool.dto.users.UserDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.model.Role;
+import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
 
@@ -27,9 +28,9 @@ public class AdminController {
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDtoOut createUser(@Valid @RequestBody UserDto userDto) {
+    public void createUser(@Valid @RequestBody UserDto userDto) {
         log.info("Пришел POST запрос {}", userDto);
-        return userService.create(userDto);
+        userService.create(userDto);
     }
 
     @PatchMapping("/users/{id}")

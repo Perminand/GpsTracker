@@ -14,14 +14,14 @@ services:
       interval: 5s
       retries: 10
 
-  tracker-service:
-    build: tracker-service
-    container_name: tracker-service
-    ports:
-      - "8080:8080"
-    depends_on:
-      - users-db
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://users-db:5432/users
-      - SPRING_DATASOURCE_USERNAME=users
-      - SPRING_DATASOURCE_PASSWORD=users
+#  tracker-service:
+#    build: tracker-service
+#    container_name: tracker-service
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - users-db
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://users-db:5432/users
+#      - SPRING_DATASOURCE_USERNAME=users
+#      - SPRING_DATASOURCE_PASSWORD=users
