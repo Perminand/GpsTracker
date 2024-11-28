@@ -39,13 +39,17 @@ public class AdminController {
         return null;//userService.update(userDto, id);
     }
 
-    @DeleteMapping("/users/{id}")
-
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     public List<UserDtoOut> getAll() {
         log.info("Пришел GET запрос на получения списка пользователей");
         return userService.getAll();
+    }
+
+    @DeleteMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteById(@PathVariable @Min(0) Long id) {
+
     }
 
     @PostMapping("/roles")
