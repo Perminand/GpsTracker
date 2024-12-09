@@ -3,6 +3,7 @@ package ru.perminov.carpool.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,15 +13,18 @@ import ru.perminov.carpool.service.user.UserService;
 
 @Slf4j
 @Validated
-@RestController
-@RequestMapping("/api/v1/apps")
+@Controller
+@RequestMapping("/api/v1/apps/auth/login")
 @RequiredArgsConstructor
-public class UserController {
-    private final UserService userService;
+public class PageController {
 
-    @GetMapping("/welcome")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public String welcome() {
-        return "Welcome to the unprotected page";
+    public String getIndex() {
+        return "index";
     }
+
+
+
+
 }

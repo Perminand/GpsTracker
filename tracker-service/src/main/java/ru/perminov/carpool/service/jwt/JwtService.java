@@ -8,13 +8,16 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import ru.perminov.carpool.exceptions.errors.ValidationException;
+import ru.perminov.carpool.model.Role;
 import ru.perminov.carpool.model.User;
+import ru.perminov.carpool.security.UserSecurityService;
+import ru.perminov.carpool.service.user.UserService;
 
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -29,6 +32,12 @@ public class JwtService {
      */
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public Set<String> extractRole(String token) {
+        Claims claims = extractAllClaims(token);
+
+        return null;
     }
 
     /**
@@ -47,16 +56,22 @@ public class JwtService {
         return generateToken(claims, userDetails);
     }
 
+
     /**
      * Проверка токена на валидность
      *
      * @param token       токен
-     * @param userDetails данные пользователя
+     * @param UserSecurityService данные пользователя
      * @return true, если токен валиден
      */
-    public boolean isTokenValid(String token, UserDetails userDetails) {
+    public UserDetails isTokenValid(String token, UserSecurityService userService) {
         final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        UserDetails user = userService.loadUserByUsername(userName);
+        if (userName.equals(user.getUsername()) && !isTokenExpired(token)) {
+            return user;
+        } else {
+            throw new ValidationException("Token not valid");
+        }
     }
 
     /**

@@ -33,6 +33,7 @@ public class ItemController {
 
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public String getAll() {
         log.info("Пришел Get запрос");
@@ -44,15 +45,5 @@ public class ItemController {
         }
         sb.append(" </table> </body> </html>");
         return sb.toString();
-    }
-
-    @WebServlet("/imageServlet")
-    public class ImageServlet extends HttpServlet {
-        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
-            response.setContentType("text/html");
-            String imagePath = "/resources/car.jpeg";
-            URL imageUrl = getClass().getResource(imagePath);
-            response.getOutputStream().write(imageUrl.openStream().readAllBytes());
-        }
     }
 }
