@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', function () {
             // Если сервер вернул данные, сохраняем их в куки
             if (data.token) {
                 document.cookie = `token=${data.token}; Path=/`;
-                window.location.href = '/api/v1/apps/items';
+                window.location.href = '/';
             } else {
                 alert('Неверные логин или пароль');
             }

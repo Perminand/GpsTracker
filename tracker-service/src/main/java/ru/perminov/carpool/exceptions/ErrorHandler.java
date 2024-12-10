@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.perminov.carpool.exceptions.errors.BadCredentailsException;
 import ru.perminov.carpool.exceptions.errors.ConflictException;
 import ru.perminov.carpool.exceptions.errors.EntityNotFoundException;
 import ru.perminov.carpool.exceptions.errors.ValidationException;
@@ -42,6 +43,13 @@ public class ErrorHandler {
     public ApiErrorDto handleBadRequestError(final ValidationException e) {
         log.error("400 {}", e.getMessage(), e);
         return setApiError(e, HttpStatus.BAD_REQUEST.getReasonPhrase());
+    }
+
+    @ExceptionHandler(BadCredentailsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiErrorDto badCredentailsError(final BadCredentailsException e) {
+        log.error("401 {}", e.getMessage(), e);
+        return setApiError(e, HttpStatus.UNAUTHORIZED.getReasonPhrase());
     }
 
     private ApiErrorDto setApiError(Throwable e, String status) {

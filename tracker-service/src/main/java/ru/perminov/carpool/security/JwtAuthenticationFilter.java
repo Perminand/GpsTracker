@@ -38,11 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserDetails user = jwtService.isTokenValid(token, userSecurityService);
             JwtAuthentication jwtAuthentication = new JwtAuthentication(user.getUsername(),user.getAuthorities(),request);
             SecurityContextHolder.getContext().setAuthentication(jwtAuthentication);
-        } else {
-            response.sendRedirect("/api/v1/apps/login");
-            return;
         }
-
         filterChain.doFilter(request, response);
     }
 
