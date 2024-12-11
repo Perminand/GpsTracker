@@ -3,15 +3,18 @@ package ru.perminov.carpool.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.perminov.carpool.service.user.UserService;
+
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -53,6 +56,12 @@ public class PageController {
                 "</html>";
     }
 
+    @GetMapping("/wialon")
+    @ResponseStatus(HttpStatus.OK)
+    public String getWialon() {
+    return "";
+    }
+
     @GetMapping("/")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
@@ -89,5 +98,7 @@ public class PageController {
                 "</body>\n" +
                 "</html>";
     }
+
+
 
 }

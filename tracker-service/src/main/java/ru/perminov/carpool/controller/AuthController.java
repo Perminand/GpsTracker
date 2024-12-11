@@ -20,12 +20,6 @@ import ru.perminov.carpool.security.AuthenticationService;
 public class AuthController {
     private final AuthenticationService authenticationService;
 
-    @Operation(summary = "Регистрация пользователя")
-    @PostMapping("/sign-up")
-    public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) {
-        return authenticationService.signUp(request);
-    }
-
     @Operation(summary = "Авторизация пользователя")
     @PostMapping("/login")
     public JwtAuthenticationResponse signIn(@RequestBody SignInRequest request) {
