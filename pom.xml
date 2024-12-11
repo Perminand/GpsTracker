@@ -15,7 +15,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>tracker-service</module>
-        <module>client</module>
     </modules>
 
     <properties>
