@@ -1,11 +1,16 @@
 package ru.perminov.carpool.client;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import java.sql.Driver;
 
 public class ClientWialon {
     String clientId = "GpsTracker";
@@ -18,10 +23,13 @@ public class ClientWialon {
 
     public void getToken(String username, String password) throws IOException, URISyntaxException {
         URI url = new URI("https://hosting.wln-hst.com/login.html?client_id=GpsTracker&access_type=-1&lang=ru");
+        WebDriverManager.firefoxdriver().setup();
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Андрей\\Desktop\\chrome-win64\\chrome.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.navigate();
+        FirefoxOptions fo = new FirefoxOptions()
+        FirefoxDriver driver = new FirefoxDriver()
+        driver.get(String.valueOf(url));
+
+
 
 
 //            System.out.println(document);
