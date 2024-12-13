@@ -55,6 +55,17 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll().stream().map(UserMapper::toDto).toList();
     }
 
+    @Override
+    public void update(UserDto userDto) {
+
+    }
+
+    @Override
+    public UserDtoOut getById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Пользователь не найден"));
+        return UserMapper.toDto(user);
+    }
+
     public User getByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("Пользователь не найден"));

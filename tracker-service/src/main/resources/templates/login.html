@@ -2,28 +2,25 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JWT Authentication</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <script src="/js/scripts.js"></script>
-</head>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+     <title>JWT Authentication</title>
+    <link href="/css/styles.css" rel="stylesheet">
+    <script src="/js/auth.js"></script>
+ </head>
 <body>
-<header>
-    <h1>GPS Tracker</h1>
+<header> <h1>GPS Tracker</h1>
 </header>
 <main>
     <div class="container">
-        <form action="/api/v1/apps/auth/login" method="post" id="form">
+        <form action="/api/v1/apps/auth/login" id="form" method="post">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required><br>
+            <input id="username" name="username" required type="text"><br>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br>
-            <button type="submit">Login</button>
-        </form>
+            <input id="password" name="password" required type="password"><br>
+            <button type="submit">Войти</button>
+           </form>
     </div>
 </main>
-<footer>
-    <p>&copy; 2024 Perminov production</p>
-</footer>
+<footer><p>&copy; 2024 Perminov production</p></footer>
 </body>
 </html>

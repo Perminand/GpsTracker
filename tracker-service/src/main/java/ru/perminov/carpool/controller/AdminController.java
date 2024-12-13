@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.perminov.carpool.dto.role.RoleDto;
@@ -33,12 +34,13 @@ public class AdminController {
         userService.create(userDto);
     }
 
-    @PatchMapping("/users/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public UserDtoOut updateUser(@Valid @RequestBody UserDto userDto, @PathVariable Long id) {
-        log.info("Пришел PATCH запрос на изменение данных");
-        return null;//userService.update(userDto, id);
-    }
+//    @PatchMapping("/users/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public String updateUser(@ModelAttribute UserDto userDto, Model model) {
+//        log.info("Пришел PATCH запрос на изменение данных");
+//        userService.update(userDto);
+//        return "redirect:/users-list";
+//    }
 
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)

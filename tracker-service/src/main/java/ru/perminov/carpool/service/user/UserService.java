@@ -11,4 +11,7 @@ public interface UserService {
 
     List<UserDtoOut> getAll();
 
+    void update(UserDto userDto);
+
+    UserDtoOut getById(Long id);
 }

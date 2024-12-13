@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование пользователя</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Редактирование пользователя</h1>
+    <form th:action="@{/update-user}" th:object="${user}" method="post">
+        <div class="form-group">
+            <label for="username">Имя пользователя</label>
+            <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="email">Электронная почта</label>
+            <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="authority">Роль</label>
+            <input type="text" class="form-control" id="authority" name="authority" th:field="*{authority}" required="required" />
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+</div>
+</body>
+</html>
