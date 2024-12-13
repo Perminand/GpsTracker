@@ -30,12 +30,22 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String realPassword;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    private TokenWialon tokenWialon;
+
+    @ManyToOne
+    private TokenAccess tokenAccess;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

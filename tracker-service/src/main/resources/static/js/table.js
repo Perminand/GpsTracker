@@ -16,7 +16,7 @@ function createTableFromData(data) {
 
 // Функция для загрузки данных JSON с помощью GET запроса
 async function loadData() {
-    const response = await fetch('http://62.109.21.174:8080/api/v1/apps/items');
+    const response = await fetch('http://62.109.21.174:8081/api/v1/apps/items');
     if (!response.ok) {
         throw new Error('Ошибка при загрузке данных');
     }

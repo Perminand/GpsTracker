@@ -18,19 +18,16 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import ru.perminov.carpool.security.JwtAuthenticationFilter;
-import ru.perminov.carpool.security.UserSecurityService;
 
 import java.util.List;
-
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-    private static final String LOGIN_PAGE = "http://62.109.21.174:8080/api/v1/apps/auth/login";
+
+    private static final String LOGIN_PAGE = "http://62.109.21.174:8081/api/v1/apps/auth/login";
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserSecurityService userSecurityService;
 
