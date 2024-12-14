@@ -9,11 +9,11 @@ import java.util.List;
 public interface RoleService {
     Role create(RoleDto roleDto);
 
-    List<Role> getAll();
+    List<RoleDto> getAll();
 
-    Role getById(Long id);
+    RoleDto getById(Long id);
 
-    Role update(Role role, Long id);
+    RoleDto update(RoleDto role, Long id);
 
     void deleteById(@Min(0) Long id);
 }

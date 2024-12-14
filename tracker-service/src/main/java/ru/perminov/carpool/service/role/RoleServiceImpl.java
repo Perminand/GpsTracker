@@ -22,18 +22,19 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> getAll() {
-        return roleRepository.findAll();
+    public List<RoleDto> getAll() {
+        return roleRepository.findAll().stream().map(RoleMapper::toDto).toList();
     }
 
     @Override
-    public Role getById(Long id) {
-        return getRole(id);
+    public RoleDto getById(Long id) {
+        Role role = getRole(id);
+        return RoleMapper.toDto(role);
     }
 
     @Override
     @Transactional
-    public Role update(Role role, Long id) {
+    public RoleDto update(RoleDto role, Long id) {
         Role r = getRole(id);
         if (role.getName() != null) {
             r.setName(role.getName());
@@ -42,12 +43,12 @@ public class RoleServiceImpl implements RoleService {
             r.setDescription(role.getDescription());
         }
         roleRepository.save(r);
-        return r;
+        return RoleMapper.toDto(r);
     }
 
     @Override
     public void deleteById(Long id) {
-        Role role = getById(id);
+        Role role = RoleMapper.toEntity(getById(id));
         roleRepository.delete(role);
     }
 

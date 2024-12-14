@@ -10,8 +10,10 @@ import ru.perminov.carpool.exceptions.errors.ConflictException;
 import ru.perminov.carpool.exceptions.errors.EntityNotFoundException;
 import ru.perminov.carpool.mapper.UserMapper;
 import ru.perminov.carpool.model.Role;
+import ru.perminov.carpool.model.TokenAccess;
 import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.repository.RoleRepository;
+import ru.perminov.carpool.repository.TokenAccessRepository;
 import ru.perminov.carpool.repository.UserRepository;
 
 import java.time.LocalDateTime;
@@ -23,7 +25,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder bCryptPasswordEncoder;
     private final RoleRepository roleRepository;
-
+    private final TokenAccessRepository tokenAccess;
     /**
      * Получение пользователя по имени пользователя
      *
@@ -52,7 +54,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDtoOut> getAll() {
-        return userRepository.findAll().stream().map(UserMapper::toDto).toList();
+        List<User> users = userRepository.findAll();
+        return users.stream().map(UserMapper::toDto).toList();
     }
 
     @Override

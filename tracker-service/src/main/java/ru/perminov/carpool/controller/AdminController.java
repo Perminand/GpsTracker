@@ -64,21 +64,21 @@ public class AdminController {
 
     @GetMapping("/roles")
     @ResponseStatus(HttpStatus.OK)
-    public List<Role> getAllRoles() {
+    public List<RoleDto> getAllRoles() {
         log.info("");
         return roleService.getAll();
     }
 
     @GetMapping("/roles/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Role getAllRoles(@Min(1) @PathVariable Long id) {
+    public RoleDto getAllRoles(@Min(1) @PathVariable Long id) {
         log.info("");
         return roleService.getById(id);
     }
 
     @PatchMapping("/roles/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Role updateRole(@RequestBody @Valid Role role,
+    public RoleDto updateRole(@RequestBody @Valid RoleDto role,
                            @PathVariable @Min(1) Long id) {
         log.info("Пришел PATCH запрос на изменение данных");
         return roleService.update(role, id);

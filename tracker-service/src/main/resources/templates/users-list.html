@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Список пользователей</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -16,6 +16,7 @@
             <th>Имя пользователя</th>
             <th>Электронная почта</th>
             <th>Роль</th>
+            <th>Время окончания токена</th>
             <th>Действия</th>
         </tr>
         </thead>
@@ -24,7 +25,13 @@
             <td th:text="${user.id}">ID пользователя</td>
             <td th:text="${user.username}">Имя пользователя</td>
             <td th:text="${user.email}">Электронная почта</td>
-            <td th:text="${user.roles}">Роль</td>
+            <td>
+                <div th:each="role : ${user.roles}">
+                    <span th:text="${role}">Роль</span>
+                </div>
+            </td>
+            <td th:text="${user.tokenAccess.endData}">Время окончания токена</td>
+
             <td>
                 <a href="#" class="btn btn-primary" th:href="@{/admin/edit-user/{id}(id=${user.id})}">Редактировать</a> <a href="#" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить пользователя?')">Удалить</a>
             </td>

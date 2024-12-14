@@ -11,16 +11,26 @@
     <h1>Редактирование пользователя</h1>
     <form th:action="@{/update-user}" th:object="${user}" method="post">
         <div class="form-group">
+            <label for="id">ID</label>
+            <input class="form-control" id="id" name="id" readonly="readonly" th:field="*{id}" type="text"/>
+        </div>
+        <div class="form-group">
             <label for="username">Имя пользователя</label>
             <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="realPassword">Пароль</label>
+            <input class="form-control" id="realPassword" name="realPassword" required="required" th:field="*{realPassword}"
+                   type="password"/>
         </div>
         <div class="form-group">
             <label for="email">Электронная почта</label>
             <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required="required" />
         </div>
         <div class="form-group">
-            <label for="roles">Роль</label>
-            <input type="text" class="form-control" id="roles" name="roles" th:field="*{roles}" required="required" />
+    <label for="tokenAccess">Token Access</label>
+    <input class="form-control" id="tokenAccess" name="tokenAccess" required="required" th:field="*{tokenAccess.endData}"
+           type="text"/>
         </div>
         <button type="submit" class="btn btn-primary">Сохранить изменения</button>
     </form>

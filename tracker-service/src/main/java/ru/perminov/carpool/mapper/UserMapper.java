@@ -21,6 +21,9 @@ public class UserMapper {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .roles(user.getRoles())
+                .tokenAccess(user.getTokenAccess())
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
                 .build();
     }
 }

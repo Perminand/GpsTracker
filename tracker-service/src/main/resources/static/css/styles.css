@@ -83,16 +83,15 @@ footer {
 table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: auto; /* Добавляем свойство для фиксированной ширины столбцов */
 }
 
 th, td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
+  overflow: hidden; /* Добавляем скролл для длинных текстов */
+  white-space: nowrap;
 }
 
 th {
@@ -109,4 +108,10 @@ td {
 
 .highlight {
   background-color: #f4f4f4;
+}
+
+@media (max-width: 768px) { /* Медиа-запрос для изменения стилей при ширине экрана до 768px */
+  th, td {
+    width: 250px; /* Устанавливаем фиксированную ширину ячеек */
+  }
 }

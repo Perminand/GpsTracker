@@ -8,8 +8,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.perminov.carpool.dto.role.RoleDto;
 import ru.perminov.carpool.dto.users.UserDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
+import ru.perminov.carpool.model.Role;
+import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
 
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.List;
 @Tag(name = "Аутентификация")
 public class PageController {
     private final UserService userService;
+    private final RoleService roleService;
 
     @RequestMapping("api/v1/apps/auth/login")
     public String getIndex() {
@@ -36,7 +40,9 @@ public class PageController {
     @PreAuthorize("hasRole('ADMIN')")
     public String adminPage(Model model) {
         List<UserDtoOut> users = userService.getAll();
+        List<RoleDto> roles = roleService.getAll();
         model.addAttribute("users", users);
+        model.addAttribute("roles", roles);
         return "users-list";
     }
 
@@ -44,7 +50,9 @@ public class PageController {
     @PreAuthorize("hasRole('ADMIN')")
     public String editUserForm(@PathVariable Long id, Model model) {
         UserDtoOut user = userService.getById(id);
+        List<RoleDto> roles = roleService.getAll();
         model.addAttribute("user", user);
+        model.addAttribute("rolesGroup", roles);
         return "user-edit";
     }
 
