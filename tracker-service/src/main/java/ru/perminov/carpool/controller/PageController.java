@@ -1,13 +1,16 @@
 package ru.perminov.carpool.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.perminov.carpool.dto.role.RoleDto;
 import ru.perminov.carpool.dto.users.UserDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
@@ -15,6 +18,7 @@ import ru.perminov.carpool.model.Role;
 import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
 
+import java.net.URI;
 import java.util.List;
 
 @Slf4j
@@ -52,16 +56,9 @@ public class PageController {
         UserDtoOut user = userService.getById(id);
         List<RoleDto> roles = roleService.getAll();
         model.addAttribute("user", user);
-        model.addAttribute("rolesGroup", roles);
         return "user-edit";
     }
 
-    @PostMapping("/admin/update-user")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String updateUser(@ModelAttribute UserDto user, Model model) {
-        userService.update(user);
-        return "redirect:/users-list";
-    }
 
     @RequestMapping("/users")
     @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")

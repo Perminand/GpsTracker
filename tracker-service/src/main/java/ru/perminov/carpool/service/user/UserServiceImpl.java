@@ -6,11 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.perminov.carpool.dto.users.UserDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
+import ru.perminov.carpool.dto.users.UserUpdateDto;
 import ru.perminov.carpool.exceptions.errors.ConflictException;
 import ru.perminov.carpool.exceptions.errors.EntityNotFoundException;
 import ru.perminov.carpool.mapper.UserMapper;
 import ru.perminov.carpool.model.Role;
-import ru.perminov.carpool.model.TokenAccess;
 import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.repository.RoleRepository;
 import ru.perminov.carpool.repository.TokenAccessRepository;
@@ -59,8 +59,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(UserDto userDto) {
+    public UserDtoOut update(Long id, UserUpdateDto userDto) {
 
+       return null;
     }
 
     @Override

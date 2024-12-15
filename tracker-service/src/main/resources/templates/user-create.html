@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование пользователя</title>
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>Редактирование пользователя</h1>
+    <form action="/admin/update-user/{id}" method="POST">
+        <div class="form-group">
+            <label for="username">Имя пользователя:</label>
+            <input type="text" class="form-control" id="username" name="username">
+        </div>
+        <div class="form-group">
+            <label for="email">Электронная почта:</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="roles">Роль:</label>
+            <select class="form-control" id="roles" name="roles">
+                <option value="role1">Роль 1</option>
+                <option value="role2">Роль 2</option>
+                <!-- Добавьте дополнительные роли по необходимости -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="tokenAccess">Время окончания токена:</label>
+            <input type="datetime-local" class="form-control" id="tokenAccess" name="tokenAccess">
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+</div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault(); // Остановить стандартное поведение формы
+
+        // Получить данные из формы
+        const username = document.querySelector('#username').value;
+        const email = document.querySelector('#email').value;
+        const roles = document.querySelector('#roles').value;
+        const tokenAccess = document.querySelector('#tokenAccess').value;
+
+        // Преобразовать данные в JSON
+        const data = {
+            username,
+            email,
+            roles,
+            tokenAccess
+        };
+
+        // Отправить JSON запрос
+        fetch('/admin/update-user/{id}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при отправке данных');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Данные успешно обновлены');
+        })
+        .catch(error => {
+            console.error('Произошла ошибка:', error);
+        });
+    });
+});
+</script>
+</html>

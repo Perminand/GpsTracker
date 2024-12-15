@@ -34,13 +34,6 @@ public class AdminController {
         userService.create(userDto);
     }
 
-//    @PatchMapping("/users/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public String updateUser(@ModelAttribute UserDto userDto, Model model) {
-//        log.info("Пришел PATCH запрос на изменение данных");
-//        userService.update(userDto);
-//        return "redirect:/users-list";
-//    }
 
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)

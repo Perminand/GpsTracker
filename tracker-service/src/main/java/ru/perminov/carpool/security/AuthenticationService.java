@@ -16,6 +16,7 @@ import ru.perminov.carpool.repository.UserRepository;
 import ru.perminov.carpool.service.jwt.JwtService;
 import ru.perminov.carpool.service.user.UserService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
