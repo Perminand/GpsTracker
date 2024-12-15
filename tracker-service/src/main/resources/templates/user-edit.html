@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактирование пользователя</title>
+    <title>GPS Tracker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="/js/user-edit.js"></script>
+    <link href="/css/styles.css" rel="stylesheet">
 
     <script>
         $(document).ready(function() {
-        $('.datepicker').datepicker({
-        dateFormat: 'yy-mm-dd hh:mm',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: 'c-100:c+100',
-        });
-        });
+ $('.datepicker').datepicker({
+ dateFormat: 'dd.mm.yy',
+ changeMonth: true,
+ changeYear: true,
+ yearRange: 'c-100:c+100',
+ });
+ });
     </script>
 </head>
+<footer><p>&copy; 2024 Perminov production</p></footer>
 <body>
+<header> <h1>Редактирование пользователя</h1>
+</header>
 <div class="container">
-    <h1>Редактирование пользователя</h1>
+
     <form action="/" method="POST" th:object="${user}">
         <div class="form-group">
             <label for="id">ID</label>
@@ -33,11 +37,11 @@
             <label for="username">Имя пользователя</label>
             <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required="required" />
         </div>
-        <div class="form-group">
-            <label for="realPassword">Пароль</label>
-            <input class="form-control" id="realPassword" name="realPassword" required="required" th:field="*{realPassword}"
-                   type="password"/>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label for="realPassword">Пароль</label>-->
+<!--            <input class="form-control" id="realPassword" name="realPassword" th:field="*{realPassword}"-->
+<!--                   type="password"/>-->
+<!--        </div>-->
         <div class="form-group">
             <label for="email">Электронная почта</label>
             <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required="required" />
@@ -48,7 +52,6 @@
                    th:field="*{tokenAccess.endData}" type="text"/>
         </div>
         <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-        <button type="submit">Обновить</button>
         <button type="button" class="btn btn-danger" onclick= "window.location.href = '/admin/users-list'">Отменить</button>    </form>
 </div>
 </body>

@@ -19,6 +19,7 @@ public class UserMapper {
         return UserDtoOut.builder()
                 .id(user.getId())
                 .username(user.getUsername())
+                .realPassword(user.getRealPassword())
                 .email(user.getEmail())
                 .roles(user.getRoles())
                 .tokenAccess(user.getTokenAccess())

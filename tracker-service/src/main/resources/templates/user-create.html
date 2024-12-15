@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактирование пользователя</title>
+    <title>GPS Tracker</title>
     <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-    <h1>Редактирование пользователя</h1>
+    <header> <h1>Редактирование пользователя</h1>
+    </header>
     <form action="/admin/update-user/{id}" method="POST">
         <div class="form-group">
             <label for="username">Имя пользователя:</label>
@@ -33,6 +34,8 @@
         <button type="submit" class="btn btn-primary">Сохранить изменения</button>
     </form>
 </div>
+<footer><p>&copy; 2024 Perminov production</p></footer>
+
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function() {

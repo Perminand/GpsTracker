@@ -4,6 +4,7 @@
 
     // Получить данные из формы
     const username = document.querySelector('#username').value;
+//    const realPassword = document.querySelector('#realPassword').value;
     const email = document.querySelector('#email').value;
     const tokenAccess = document.querySelector('#tokenAccess').value;
 
@@ -13,6 +14,7 @@
     // Преобразовать данные в JSON
     const data = {
       username,
+//      realPassword,
       email,
       tokenAccess
     };

@@ -21,9 +21,9 @@ public class TokenAccess {
     private String name;
 
     @Column(nullable = false)
-    private LocalDateTime dataCreated;
+    private LocalDate dataCreated;
 
     @Column(nullable = false)
-    private LocalDateTime endData;
+    private LocalDate endData;
 
 }

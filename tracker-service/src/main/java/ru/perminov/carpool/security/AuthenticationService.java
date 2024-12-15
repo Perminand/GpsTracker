@@ -63,16 +63,18 @@ public class AuthenticationService {
         ));
 
         User user = (User) userSecurityService.loadUserByUsername(request.getUsername());
+        TokenAccess tokenAccess = user.getTokenAccess();
         String jwt = jwtService.generateToken(user);
-        LocalDateTime nowTime = LocalDateTime.now();
-        TokenAccess tokenAccess = TokenAccess.builder()
-                .name(jwt)
-                .dataCreated(nowTime)
-                .endData(nowTime.plusDays(30))
-                .build();
+        LocalDate nowTime = LocalDate.now();
+        if(tokenAccess == null) {
+            tokenAccess = new TokenAccess();
+        }
+        tokenAccess.setName(jwt);
+        tokenAccess.setDataCreated(nowTime);
+        tokenAccess.setEndData(nowTime.plusDays(30));
         tokenAccessRepository.save(tokenAccess);
         user.setTokenAccess(tokenAccess);
-        user.setUpdatedAt(nowTime);
+        user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
         return new JwtAuthenticationResponse(jwt);
     }

@@ -16,7 +16,9 @@ import ru.perminov.carpool.repository.RoleRepository;
 import ru.perminov.carpool.repository.TokenAccessRepository;
 import ru.perminov.carpool.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -59,9 +61,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDtoOut update(Long id, UserUpdateDto userDto) {
+    public void update(Long id, UserUpdateDto userDto) {
+        User user = userRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Пользователь не найден"));
 
-       return null;
+        if(!userDto.getUsername().equals(user.getUsername()) || userDto.getUsername() == null) {
+            user.setUsername(userDto.getUsername());
+        }
+
+        if(!userDto.getEmail().equals(user.getEmail()) || userDto.getEmail() == null) {
+            user.setEmail(userDto.getEmail());
+        }
+        if(userDto.getTokenAccess() != null) {
+            LocalDate dateTime = LocalDate.parse(userDto.getTokenAccess(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            if (!dateTime.isEqual(user.getTokenAccess().getEndData())) {
+                user.getTokenAccess().setEndData(dateTime);
+            }
+        }
+        user.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(user);
+
+
     }
 
     @Override
