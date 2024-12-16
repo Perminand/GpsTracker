@@ -39,7 +39,7 @@
             </td>
             <td>
                 <span th:if="${user.tokenAccess != null}" th:text="${user.tokenAccess.endData}">Вход не выполнялся</span>
-                <span th:if="${user.tokenAccess == null}">Не заходил</span>
+                <span th:if="${user.tokenAccess == null}">Не назначено</span>
 
             </td>
 
@@ -57,7 +57,6 @@
 </div>
 <footer>
     <div class="container">
-        <button id="logout-button" class="btn">Выйти</button>
         <p>&copy; 2024 Perminov production</p>
     </div>
 </footer>

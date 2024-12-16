@@ -48,6 +48,11 @@ public class AuthenticationService {
 
         User user = userService.create(userDto);
         var jwt = jwtService.generateToken(user);
+        TokenAccess tokenAccess = TokenAccess.builder()
+                .name(jwt)
+                .endData(LocalDate.now().plusDays(30)).build();
+        tokenAccessRepository.save(tokenAccess);
+        user.setTokenAccess(tokenAccess);
         return new JwtAuthenticationResponse(jwt);
     }
 
@@ -62,19 +67,24 @@ public class AuthenticationService {
                 request.getUsername(),
                 request.getPassword()
         ));
-
         User user = (User) userSecurityService.loadUserByUsername(request.getUsername());
+        String jwt;
+        if (user.getRoles().get(0).getName().equals("ROLE_ADMIN")) {
         TokenAccess tokenAccess = user.getTokenAccess();
-        String jwt = jwtService.generateToken(user);
-        LocalDate nowTime = LocalDate.now();
-        if(tokenAccess == null) {
+
+        if (tokenAccess == null) {
             tokenAccess = new TokenAccess();
+            }
+            jwt = jwtService.generateToken(user);
+            LocalDate nowTime = LocalDate.now();
+            tokenAccess.setName(jwt);
+            tokenAccess.setName(jwt);
+            tokenAccess.setDataCreated(nowTime);
+            tokenAccess.setEndData(nowTime.plusDays(30));
+            tokenAccessRepository.save(tokenAccess);
+        } else {
+            jwt  = user.getTokenAccess().getName();
         }
-        tokenAccess.setName(jwt);
-        tokenAccess.setDataCreated(nowTime);
-        tokenAccess.setEndData(nowTime.plusDays(30));
-        tokenAccessRepository.save(tokenAccess);
-        user.setTokenAccess(tokenAccess);
         user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
         return new JwtAuthenticationResponse(jwt);
