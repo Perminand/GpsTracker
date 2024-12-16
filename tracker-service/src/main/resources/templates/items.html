@@ -1,9 +1,12 @@
-<!DOCTYPE html><html lang="ru">
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPS Tracker</title>    
     <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/items.js"></script>
+    <script src="/js/logout.js"></script>
 </head>
 <body>
 <header> <h1>Сообщения</h1>
@@ -21,8 +24,16 @@
         <tbody></tbody>        
     </table>        
     <input type="text" id="message-filter" placeholder="Введите сообщение для фильтрации">
-    <button id="logout-button">Выйти</button>    <script src="/js/user.js"></script>
-    <script src="/js/logout.js"></script>
 </div>
-<footer><p>&copy; 2024 Perminov production</p></footer>
+<footer>
+    <div class="container">
+        <p>Вы вошли в систему как администратор?</p>
+        <c:if test="${user.authorities.contains('ROLE_ADMIN')}">
+            <button type="button" class="btn" onclick="redirectToAdminPage()">Кнопка администратора</button>
+        </c:if>
+        <button id="logout-button" class="btn">Выйти</button>
+        <p>&copy; 2024 Perminov production</p>
+    </div>
+</footer>
+<script src="/js/logout.js"></script>
 </body></html>

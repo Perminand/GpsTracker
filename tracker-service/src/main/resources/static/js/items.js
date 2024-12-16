@@ -46,3 +46,7 @@ function filterTable(event) {
 // Инициализация загрузки данных и привязки события ввода
 loadData();
 document.getElementById('message-filter').addEventListener('input', filterTable);
+
+function redirectToAdminPage() {
+    window.location.href = '/admin/users-list';
+}

@@ -1,13 +1,15 @@
 package ru.perminov.carpool.mapper;
 
 import ru.perminov.carpool.dto.users.UserDto;
+import ru.perminov.carpool.dto.users.UserDtoForItems;
 import ru.perminov.carpool.dto.users.UserDtoOut;
+import ru.perminov.carpool.dto.users.UserDtoWeb;
 import ru.perminov.carpool.model.User;
 
 import java.util.ArrayList;
 
 public class UserMapper {
-    public static User toEntity(UserDto userDto) {
+    public static User toEntity(UserDtoWeb userDto) {
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
@@ -26,5 +28,9 @@ public class UserMapper {
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
                 .build();
+    }
+
+    public static UserDtoForItems toDtoForItems(User user) {
+        return UserDtoForItems.builder().username(user.getUsername()).roles(user.getRoles()).build();
     }
 }

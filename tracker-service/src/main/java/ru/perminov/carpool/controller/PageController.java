@@ -7,18 +7,23 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.perminov.carpool.dto.role.RoleDto;
 import ru.perminov.carpool.dto.users.UserDto;
+import ru.perminov.carpool.dto.users.UserDtoForItems;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.model.Role;
+import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
 
 import java.net.URI;
+import java.util.Collection;
 import java.util.List;
 
 @Slf4j
@@ -50,20 +55,29 @@ public class PageController {
         return "users-list";
     }
 
-    @GetMapping("/admin/edit-user/{id}")
+    @GetMapping("/admin/create")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String createUser(Model model) {
+        List<RoleDto> roles = roleService.getAll();
+        model.addAttribute("roles", roles);
+        return "create";
+    }
+
+
+    @GetMapping("/admin/update/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public String editUserForm(@PathVariable Long id, Model model) {
         UserDtoOut user = userService.getById(id);
         List<RoleDto> roles = roleService.getAll();
         model.addAttribute("user", user);
-        return "user-edit";
+        return "update";
     }
 
 
-    @RequestMapping("/users")
+    @RequestMapping("/items")
     @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
-    public String getAllItems() {
-        return "user";
+    public String getAllItems(Model model) {
+         return "items";
     }
 
 

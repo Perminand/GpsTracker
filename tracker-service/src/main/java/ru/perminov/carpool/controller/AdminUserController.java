@@ -3,9 +3,8 @@ package ru.perminov.carpool.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.perminov.carpool.dto.users.UserUpdateDto;
+import ru.perminov.carpool.dto.users.UserDtoWeb;
 import ru.perminov.carpool.service.user.UserService;
 
 @Slf4j
@@ -16,11 +15,18 @@ public class AdminUserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/update-user/{id}")
+    @PostMapping("/users/update/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateUser(@PathVariable("id") Long id, @RequestBody UserUpdateDto user) {
+    public void updateUser(@PathVariable("id") Long id, @RequestBody UserDtoWeb user) {
         log.info("Пришел запрос на изменение пользователя с ИД: {}, {}", id, user);
         userService.update(id, user);
 
+    }
+
+    @PostMapping("/users/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createUser(@RequestBody UserDtoWeb userDto) {
+        log.info("Пришел POST запрос {}", userDto);
+        userService.create(userDto);
     }
 }

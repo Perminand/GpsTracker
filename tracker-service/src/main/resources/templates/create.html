@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>GPS Tracker</title>
+
+    <link href="/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header> <h1>Создание пользователя</h1></header>
+<div class="container">
+    <form action="/" method="POST">
+        <div class="form-group">
+            <label for="username">Имя пользователя:</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="realPassword">Пароль:</label>
+            <input type="password" class="form-control" id="realPassword" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Подтвердите пароль:</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        <div class="form-group">
+            <select name="role" id="role">
+                <option >ROLE_ADMIN</option>
+                <option selected="selected" >ROLE_USER</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="createUserButton">Создать пользователя</button>
+        <button type="button" class="btn btn-danger" onclick= "window.location.href = '/admin/users-list'">Отменить</button>
+    </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<footer><p>&copy; 2024 Perminov production</p></footer>
+<script src="/js/create.js"></script>
+</body>
+</html>

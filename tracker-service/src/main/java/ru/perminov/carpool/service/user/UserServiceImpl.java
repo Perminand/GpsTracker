@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.perminov.carpool.dto.users.UserDto;
+import ru.perminov.carpool.dto.users.UserDtoForItems;
 import ru.perminov.carpool.dto.users.UserDtoOut;
-import ru.perminov.carpool.dto.users.UserUpdateDto;
+import ru.perminov.carpool.dto.users.UserDtoWeb;
 import ru.perminov.carpool.exceptions.errors.ConflictException;
 import ru.perminov.carpool.exceptions.errors.EntityNotFoundException;
 import ru.perminov.carpool.mapper.UserMapper;
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
      * @return пользователь
      */
 
-    public User create(UserDto userDto) {
+    public User create(UserDtoWeb userDto) {
         if (userRepository.existsByUsername(userDto.getUsername())) {
             throw new ConflictException("Пользователь с таким именем уже существует");
         }
@@ -49,7 +49,8 @@ public class UserServiceImpl implements UserService {
         }
         Role role = roleRepository.findByName(userDto.getRoles()).orElseThrow(() -> new EntityNotFoundException("Roles not found"));
         user.getRoles().add(role);
-        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(userDto.getRealPassword()));
+        user.setRealPassword(userDto.getRealPassword());
         user.setCreatedAt(LocalDateTime.now());
         return userRepository.save(user);
     }
@@ -61,7 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(Long id, UserUpdateDto userDto) {
+    public void update(Long id, UserDtoWeb userDto) {
         User user = userRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Пользователь не найден"));
 
         if(!userDto.getUsername().equals(user.getUsername()) || userDto.getUsername() == null) {
@@ -87,6 +88,11 @@ public class UserServiceImpl implements UserService {
     public UserDtoOut getById(Long id) {
         User user = userRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Пользователь не найден"));
         return UserMapper.toDto(user);
+    }
+
+    @Override
+    public UserDtoForItems getUserByUsername(String name) {
+        return UserMapper.toDtoForItems(userRepository.findByUsername(name).orElseThrow(()-> new EntityNotFoundException("Пользователь не найден")));
     }
 
     public User getByUsername(String username) {

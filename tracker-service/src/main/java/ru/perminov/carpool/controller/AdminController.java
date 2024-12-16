@@ -5,14 +5,12 @@ import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.perminov.carpool.dto.role.RoleDto;
-import ru.perminov.carpool.dto.users.UserDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
+import ru.perminov.carpool.dto.users.UserDtoWeb;
 import ru.perminov.carpool.model.Role;
-import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
 
@@ -27,12 +25,7 @@ public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
 
-    @PostMapping("/users")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(@Valid @RequestBody UserDto userDto) {
-        log.info("Пришел POST запрос {}", userDto);
-        userService.create(userDto);
-    }
+
 
 
     @GetMapping("/users")

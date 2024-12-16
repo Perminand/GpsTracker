@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPS Tracker</title>
     <link href="/css/styles.css" rel="stylesheet">
+    <script>
+        function createUser() {
+        window.location.href = "/admin/create";
+        }
+    </script>
 </head>
 <body>
-<header> <h1>Список пользователей</h1>
+<header>
+    <h1>Список пользователей</h1>
 </header>
 <div class="container">
     <table class="table table-striped">
@@ -31,15 +37,30 @@
                     <span th:text="${role}">Роль</span>
                 </div>
             </td>
-            <td th:text="${user.tokenAccess.endData}">Время окончания токена</td>
+            <td>
+                <span th:if="${user.tokenAccess != null}" th:text="${user.tokenAccess.endData}">Вход не выполнялся</span>
+                <span th:if="${user.tokenAccess == null}">Не заходил</span>
+
+            </td>
 
             <td>
-                <a href="#" class="btn btn-primary" th:href="@{/admin/edit-user/{id}(id=${user.id})}">Редактировать</a> <a href="#" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить пользователя?')">Удалить</a>
+                <a href="#" class="btn btn-primary" th:href="@{/admin/update/{id}(id=${user.id})}">Редактировать</a>
+                <a href="#" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить пользователя?')">Удалить</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <div class="create-user-button-container">
+        <button class="btn btn-primary" onclick="createUser()">Создать пользователя</button>
+        <button id="back-button" class="btn">Назад</button>
+    </div>
 </div>
-<footer><p>&copy; 2024 Perminov production</p></footer>
+<footer>
+    <div class="container">
+        <button id="logout-button" class="btn">Выйти</button>
+        <p>&copy; 2024 Perminov production</p>
+    </div>
+</footer>
+<script src="/js/admin.js"></script>
 </body>
 </html>

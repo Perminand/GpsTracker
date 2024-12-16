@@ -24,7 +24,7 @@
   });
 
   function updateUser(id, data) {
-    return fetch(`/admin/update-user/${id}`, {
+    return fetch(`/admin/users/update/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -45,3 +45,12 @@
     });
   }
 });
+
+$(document).ready(function() {
+ $('.datepicker').datepicker({
+ dateFormat: 'dd.mm.yy',
+ changeMonth: true,
+ changeYear: true,
+ yearRange: 'c-100:c+100',
+ });
+ });

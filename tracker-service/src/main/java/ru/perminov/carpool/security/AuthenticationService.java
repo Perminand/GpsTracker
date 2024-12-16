@@ -9,6 +9,7 @@ import ru.perminov.carpool.dto.request.SignInRequest;
 import ru.perminov.carpool.dto.request.SignUpRequest;
 import ru.perminov.carpool.dto.response.JwtAuthenticationResponse;
 import ru.perminov.carpool.dto.users.UserDto;
+import ru.perminov.carpool.dto.users.UserDtoWeb;
 import ru.perminov.carpool.model.TokenAccess;
 import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.repository.TokenAccessRepository;
@@ -38,10 +39,10 @@ public class AuthenticationService {
      */
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
 
-        UserDto userDto = UserDto.builder()
+        UserDtoWeb userDto = UserDtoWeb.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .realPassword(passwordEncoder.encode(request.getPassword()))
                 .roles("ROLE_USER")
                 .build();
 
