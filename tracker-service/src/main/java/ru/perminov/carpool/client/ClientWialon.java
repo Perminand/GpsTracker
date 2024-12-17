@@ -7,6 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +16,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
 
-
+@Component
 public class ClientWialon {
     private String url;
     String clientId = "GpsTracker";
@@ -23,6 +25,9 @@ public class ClientWialon {
     String duration = "0";
     String lang = "ru";
     String flags = "0";
+
+    @Value("${wialon.uri}")
+    String wialonUrl;
 
     public ClientWialon(){};
 
@@ -33,10 +38,12 @@ public class ClientWialon {
         this.duration = duration;
         this.lang = lang;
         this.flags = flags;
+
+
     }
 
     public String getToken(String username, String password) throws URISyntaxException {
-        URI url = new URI("https://hosting.wln-hst.com/login.html?client_id=GpsTracker&access_type=-1&lang=ru");
+        URI url = new URI(wialonUrl);
         StringBuilder sb = new StringBuilder();
         String resourcePath = "tracker-service/src/main/resources/driver/chromedriver";
         File chromedriver = new File(resourcePath);

@@ -2,23 +2,17 @@
   document.querySelector('form').addEventListener('submit', function(e) {
    e.preventDefault(); // Остановить стандартное поведение формы
 
+
    // Получить данные из формы
    const username = document.querySelector('#username').value;
    const realPassword = document.querySelector('#realPassword').value;
+   const confirmPassword = document.querySelector('#confirmPassword').value;
    const email = document.querySelector('#email').value;
 
    if (realPassword !== confirmPassword) {
    alert('Пароли не совпадают. Попробуйте ещё раз.');
    return;
    }
-   // Переключение видимости пароля
-   showPassword.addEventListener('click', function() {
-   if (showPassword.checked) {
-   realPasswordDisplay.type = 'text';
-   } else {
-   realPasswordDisplay.type = 'password';
-   }
-   });
 
    // Преобразовать данные в JSON
    const data = {
@@ -67,3 +61,12 @@
     });
   }
 });
+
+document.getElementById('user-edit-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            document.querySelector('.hidden').click();
+        });
+
+        function submitForm() {
+            document.querySelector('.hidden').click();
+        }

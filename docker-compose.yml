@@ -25,3 +25,6 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://users-db:5432/users
       - SPRING_DATASOURCE_USERNAME=users
       - SPRING_DATASOURCE_PASSWORD=users
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin23
+      - ADMIN_EMAIL=admin@admin.ru

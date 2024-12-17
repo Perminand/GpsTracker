@@ -54,3 +54,12 @@ $(document).ready(function() {
  yearRange: 'c-100:c+100',
  });
  });
+
+ document.getElementById('user-edit-form').addEventListener('submit', (event) => {
+             event.preventDefault();
+             document.querySelector('.hidden').click();
+         });
+
+         function submitForm() {
+             document.querySelector('.hidden').click();
+         }

@@ -1,12 +1,10 @@
 package ru.perminov.carpool.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -20,9 +18,9 @@ public class TokenWialon {
     private String name;
 
     @Column(nullable = false)
-    private LocalDateTime dataCreated;
+    private LocalDate dataCreated;
 
     @Column(nullable = false)
-    private LocalDateTime localDateTime;
+    private LocalDate endData;
 
 }

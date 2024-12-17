@@ -27,7 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-    private static final String LOGIN_PAGE = "http://62.109.21.174:8081/api/v1/apps/auth/login";
+    private static final String LOGIN_PAGE = "/api/v1/apps/auth/login";
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserSecurityService userSecurityService;
 

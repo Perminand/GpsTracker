@@ -1,29 +1,24 @@
 package ru.perminov.carpool.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import ru.perminov.carpool.client.ClientWialon;
 import ru.perminov.carpool.dto.role.RoleDto;
-import ru.perminov.carpool.dto.users.UserDto;
-import ru.perminov.carpool.dto.users.UserDtoForItems;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.model.Role;
 import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
 
-import java.net.URI;
-import java.util.Collection;
 import java.util.List;
 
 @Slf4j
@@ -33,6 +28,7 @@ import java.util.List;
 public class PageController {
     private final UserService userService;
     private final RoleService roleService;
+    private final ClientWialon client;
 
     @RequestMapping("api/v1/apps/auth/login")
     public String getIndex() {
@@ -40,7 +36,7 @@ public class PageController {
     }
 
     @RequestMapping("/")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
     public void getAll() {
 
     }
@@ -73,11 +69,43 @@ public class PageController {
         return "update";
     }
 
+    @GetMapping("/error")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String getError(Model model) {
+        return "error";
+    }
+
 
     @RequestMapping("/items")
     @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
     public String getAllItems(Model model) {
-         return "items";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null) {
+            String wialonJwt;
+            User user = userService.getByUsername(authentication.getName());
+            for (Role r : user.getRoles()) {
+                if (r.getName().equals("ROLE_USER")) ;
+                {
+                    try {
+                        userService.getTokenWialon(user);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        model.addAttribute("error", e);
+                        if (user.getRoles().get(0).equals("ROLE_ADMIN")) {
+
+                        }
+                        return "error";
+                    }
+                }
+                break;
+            }
+            if (user.getRoles().get(0).equals("ROLE_ADMIN")) {
+
+            }
+
+        }
+
+        return "items";
     }
 
 

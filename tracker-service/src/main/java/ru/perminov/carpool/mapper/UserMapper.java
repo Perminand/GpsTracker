@@ -1,6 +1,5 @@
 package ru.perminov.carpool.mapper;
 
-import ru.perminov.carpool.dto.users.UserDto;
 import ru.perminov.carpool.dto.users.UserDtoForItems;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.dto.users.UserDtoWeb;
@@ -12,6 +11,7 @@ public class UserMapper {
     public static User toEntity(UserDtoWeb userDto) {
         User user = new User();
         user.setUsername(userDto.getUsername());
+        user.setRealPassword(userDto.getRealPassword());
         user.setEmail(userDto.getEmail());
         user.setRoles(new ArrayList<>());
         return user;

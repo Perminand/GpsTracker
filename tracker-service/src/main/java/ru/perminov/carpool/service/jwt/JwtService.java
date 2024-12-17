@@ -9,15 +9,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ru.perminov.carpool.exceptions.errors.ValidationException;
-import ru.perminov.carpool.model.Role;
 import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.security.UserSecurityService;
-import ru.perminov.carpool.service.user.UserService;
 
 import java.security.Key;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -60,8 +60,8 @@ public class JwtService {
     /**
      * Проверка токена на валидность
      *
-     * @param token       токен
-     * @param UserSecurityService данные пользователя
+     * @param token               токен
+     * @param userService данные пользователя
      * @return true, если токен валиден
      */
     public UserDetails isTokenValid(String token, UserSecurityService userService) {

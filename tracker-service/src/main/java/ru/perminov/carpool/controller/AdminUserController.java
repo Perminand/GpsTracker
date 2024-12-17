@@ -1,16 +1,20 @@
 package ru.perminov.carpool.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.perminov.carpool.dto.users.UserDtoWeb;
+import ru.perminov.carpool.security.AuthenticationService;
 import ru.perminov.carpool.service.user.UserService;
 
 @Slf4j
 @RestController
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminUserController {
+    private final AuthenticationService authenticationService;
 
     @Autowired
     private UserService userService;
@@ -27,6 +31,6 @@ public class AdminUserController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody UserDtoWeb userDto) {
         log.info("Пришел POST запрос {}", userDto);
-        userService.create(userDto);
+        authenticationService.signUp(userDto);
     }
 }

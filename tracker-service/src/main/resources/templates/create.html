@@ -7,6 +7,11 @@
 
     <link href="/css/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <header> <h1>Создание пользователя</h1></header>
@@ -34,7 +39,8 @@
                 <option selected="selected" >ROLE_USER</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary" id="createUserButton">Создать пользователя</button>
+        <button id="createUserButton" class="hidden btn btn-primary" type="submit" style="">Создать пользователя</button>
+        <button class="btn btn-primary" onclick="submitForm()" type="button">Создать пользователя</button>
         <button type="button" class="btn btn-danger" onclick= "window.location.href = '/admin/users-list'">Отменить</button>
     </form>
 </div>
