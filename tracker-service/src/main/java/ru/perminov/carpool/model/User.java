@@ -40,8 +40,6 @@ public class User implements UserDetails {
 
     private LocalDateTime updatedAt;
 
-    private
-
     @OneToOne
     private TokenWialon tokenWialon;
 
