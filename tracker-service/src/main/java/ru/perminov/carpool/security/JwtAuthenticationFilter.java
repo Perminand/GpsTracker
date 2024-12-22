@@ -52,7 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean isTokenValid(String token) {
         try {
-            UserDetails user = jwtService.isTokenValid(token, userSecurityService);
+            jwtService.isTokenValid(token, userSecurityService);
         } catch (Exception e) {
             return false;// Здесь можно реализовать более строгую проверку валидности токена
         }

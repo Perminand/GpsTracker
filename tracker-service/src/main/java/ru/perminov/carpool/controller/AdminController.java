@@ -9,7 +9,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.perminov.carpool.dto.role.RoleDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
-import ru.perminov.carpool.dto.users.UserDtoWeb;
 import ru.perminov.carpool.model.Role;
 import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
@@ -35,11 +34,7 @@ public class AdminController {
         return userService.getAll();
     }
 
-    @DeleteMapping("/users/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteById(@PathVariable @Min(0) Long id) {
 
-    }
 
     @PostMapping("/roles")
     @ResponseStatus(HttpStatus.CREATED)

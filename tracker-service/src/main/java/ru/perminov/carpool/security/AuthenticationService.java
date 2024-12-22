@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import ru.perminov.carpool.dto.request.SignInRequest;
 import ru.perminov.carpool.dto.response.JwtAuthenticationResponse;
 import ru.perminov.carpool.dto.users.UserDtoWeb;
+import ru.perminov.carpool.model.Role;
 import ru.perminov.carpool.model.TokenAccess;
 import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.repository.TokenAccessRepository;
@@ -51,27 +52,29 @@ public class AuthenticationService {
                 request.getUsername(),
                 request.getPassword()
         ));
+        LocalDate nowTime = LocalDate.now();
         User user = (User) userSecurityService.loadUserByUsername(request.getUsername());
         String jwt;
-        if (user.getRoles().get(0).getName().equals("ROLE_ADMIN")) {
         TokenAccess tokenAccess = user.getTokenAccess();
 
-        if (tokenAccess == null) {
-            tokenAccess = new TokenAccess();
+        for (Role r : user.getRoles()) {
+            if (r.getName().equals("ROLE_ADMIN")) {
+                LocalDate endDate = nowTime.plusMonths(1);
+                if (tokenAccess == null) {
+                    jwt = jwtService.generateToken(user, endDate);
+                    tokenAccess = new TokenAccess();
+                    tokenAccess.setName(jwt);
+                    tokenAccess.setDataCreated(nowTime);
+                }
+                tokenAccess.setEndData(endDate);
+                tokenAccessRepository.save(tokenAccess);
+                user.setTokenAccess(tokenAccess);
+                user.setUpdatedAt(LocalDateTime.now());
+                userRepository.save(user);
             }
-            jwt = jwtService.generateToken(user);
-            LocalDate nowTime = LocalDate.now();
-            tokenAccess.setName(jwt);
-            tokenAccess.setDataCreated(nowTime);
-            tokenAccess.setEndData(nowTime.plusDays(30));
-            tokenAccessRepository.save(tokenAccess);
-            user.setTokenAccess(tokenAccess);
-            user.setCreatedAt(LocalDateTime.now());
-        } else {
-            jwt = user.getTokenAccess().getName();
-            }
-            user.setUpdatedAt(LocalDateTime.now());
-            userRepository.save(user);
-            return new JwtAuthenticationResponse(jwt);
+            break;
         }
+
+        return new JwtAuthenticationResponse(tokenAccess.getName());
+    }
     }

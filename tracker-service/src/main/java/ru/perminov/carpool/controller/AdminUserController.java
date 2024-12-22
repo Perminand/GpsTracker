@@ -1,5 +1,6 @@
 package ru.perminov.carpool.controller;
 
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,6 @@ public class AdminUserController {
     public void updateUser(@PathVariable("id") Long id, @RequestBody UserDtoWeb user) {
         log.info("Пришел запрос на изменение пользователя с ИД: {}, {}", id, user);
         userService.update(id, user);
-
     }
 
     @PostMapping("/users/create")
@@ -32,5 +32,11 @@ public class AdminUserController {
     public void createUser(@RequestBody UserDtoWeb userDto) {
         log.info("Пришел POST запрос {}", userDto);
         authenticationService.signUp(userDto);
+    }
+
+    @DeleteMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteById(@PathVariable @Min(0) Long id) {
+
     }
 }

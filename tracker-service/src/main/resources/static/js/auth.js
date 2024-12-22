@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('password').value;
 
         // Ваш AJAX запрос для отправки данных на сервер
-        fetch('http://62.109.21.174:8081/api/v1/apps/auth/login', {
+        fetch('/api/v1/apps/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,7 +33,10 @@ window.addEventListener('DOMContentLoaded', function () {
             }
         })
         .catch(error => {
+            alert('Неверные логин или пароль');
             console.error('Произошла ошибка:', error);
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
         });
     };
 

@@ -20,7 +20,7 @@ spring:
     ansi:
       enabled: ALWAYS
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: none
     properties:
@@ -32,9 +32,7 @@ spring:
       mode: always
   oauth2:
     client:
-      preEstablishedRedirectUrl: http://62.109.21.174:8081/api/v1/apps/auth/login
+      preEstablishedRedirectUrl: /api/v1/apps/auth/login
 token:
   signing:
     key: 53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855
-config:
-  url: http://62.109.21.174:8081

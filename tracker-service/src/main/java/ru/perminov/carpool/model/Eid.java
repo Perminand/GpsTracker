@@ -5,22 +5,23 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
-@NoArgsConstructor
-public class Item {
-
+public class Eid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private int count;
+    private LocalDateTime endTime;
+    private String name;
 
-    private ZonedDateTime dateTime;
-    private String Car;
-    private int p;
-    private int s;
-    private String address;
+
+    public Eid(String name) {
+        this.name = name;
+        this.count = 0;
+        this.endTime = LocalDateTime.now().plusMinutes(5);
+    }
 }

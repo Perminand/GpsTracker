@@ -40,11 +40,16 @@ public class User implements UserDetails {
 
     private LocalDateTime updatedAt;
 
-    @ManyToOne
+    private
+
+    @OneToOne
     private TokenWialon tokenWialon;
 
-    @ManyToOne
+    @OneToOne
     private TokenAccess tokenAccess;
+
+    @OneToOne
+    private Eid eid;
 
 
     @Override

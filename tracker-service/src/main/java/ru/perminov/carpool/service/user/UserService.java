@@ -3,7 +3,6 @@ package ru.perminov.carpool.service.user;
 import ru.perminov.carpool.dto.users.UserDtoForItems;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.dto.users.UserDtoWeb;
-import ru.perminov.carpool.model.TokenWialon;
 import ru.perminov.carpool.model.User;
 
 import java.util.List;
@@ -19,11 +18,9 @@ public interface UserService {
 
     UserDtoForItems getUserDtoByUsername(String name);
 
-    TokenWialon createWealon(TokenWialon tokenWialon);
-
     User getByUsername(String username);
 
     void create(User user);
 
-    void getTokenWialon(User user);
+    User getCurrentUser();
 }

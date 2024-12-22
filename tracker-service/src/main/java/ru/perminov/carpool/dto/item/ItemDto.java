@@ -1,10 +1,7 @@
 package ru.perminov.carpool.dto.item;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -12,8 +9,11 @@ public class ItemDto {
 
     private Long id;
 
-    private LocalDateTime created;
+    private String date;
+    private String Car;
+    private int t;
+    private int p;
+    private int s;
+    private String address;
 
-    @NotBlank
-    private String message;
 }

@@ -1,11 +1,12 @@
 package ru.perminov.carpool.service.item;
 
+import org.springframework.ui.Model;
 import ru.perminov.carpool.dto.item.ItemDto;
 
-import java.util.List;
+import java.io.IOException;
 
 public interface ItemService {
-    List<ItemDto> getAll();
+    Model getAll(Model model) throws IOException;
 
     ItemDto create(ItemDto itemDto);
 }

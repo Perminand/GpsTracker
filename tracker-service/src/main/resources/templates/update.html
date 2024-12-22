@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,57 +8,49 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="/js/update.js"></script>
     <link href="/css/styles.css" rel="stylesheet">
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
+
 </head>
 <footer><p>&copy; 2024 Perminov production</p></footer>
 <body>
-<header>
-    <h1>Редактирование пользователя</h1>
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+<header><h1>Редактирование пользователя</h1>
 </header>
 <div class="container">
 
-    <form action="/" method="POST">
+    <form action="/" method="POST" th:object="${user}">
         <div class="form-group">
             <label for="id">ID</label>
-            <input class="form-control" id="id" name="id" readonly="readonly" type="text" value="1"/>
+            <input class="form-control" id="id" name="id" readonly="readonly" th:field="*{id}" type="text"/>
         </div>
         <div class="form-group">
             <label for="username">Имя пользователя</label>
-            <input class="form-control" id="username" name="username" required="required" type="text" value="admin"/>
+            <input class="form-control" id="username" name="username" required="required" th:field="*{username}"
+                   type="text"/>
         </div>
+        <!--        <div class="form-group">-->
+        <!--            <label for="realPassword">Пароль</label>-->
+        <!--            <input class="form-control" id="realPassword" name="realPassword" th:field="*{realPassword}"-->
+        <!--                   type="password"/>-->
+        <!--        </div>-->
         <div class="form-group">
             <label for="email">Электронная почта</label>
-            <input class="form-control" id="email" name="email" required="required" type="email"
-                   value="admin@admin.ru"/>
+            <input class="form-control" id="email" name="email" required="required" th:field="*{email}" type="email"/>
         </div>
         <div class="form-group">
             <label for="tokenAccess">Token Access</label>
-            <input class="form-control datepicker" id="tokenAccess" name="tokenAccess.endData" required="required"
-                   type="text" value=""/>
+            <input class="form-control datepicker" id="tokenAccess" name="tokenAccess" required="required"
+                   th:field="*{tokenAccess.endData}" type="text"/>
         </div>
         <button class="hidden btn btn-primary" type="submit">Сохранить изменения</button>
-        <button class="btn btn-primary" onclick="submitForm()" type="button">Отправить изменения</button>
-        <button class="btn btn-danger" onclick="window.location.href = '/admin/users-list'" type="button">Отменить
-        </button>
-
+        <button class="btn btn-primary" onclick="submitForm()" type="button">Сохранить</button>
+        <button class="btn btn-danger" onclick="window.location.href = '/admin/users-list'" type="button">Назад</button>
     </form>
-
-    <script>
-        document.getElementById('user-edit-form').addEventListener('submit', (event) => {
-            event.preventDefault();
-            document.querySelector('.hidden').click();
-        });
-
-        function submitForm() {
-            document.querySelector('.hidden').click();
-        }
-    </script>
 </div>
+<script src="/js/update.js"></script>
 </body>
 </html>

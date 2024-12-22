@@ -4,21 +4,19 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.perminov.carpool.client.ClientWialon;
 import ru.perminov.carpool.dto.role.RoleDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
-import ru.perminov.carpool.model.Role;
-import ru.perminov.carpool.model.User;
+import ru.perminov.carpool.service.item.ItemService;
 import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
+import ru.perminov.carpool.service.wialon.WialonService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -28,7 +26,8 @@ import java.util.List;
 public class PageController {
     private final UserService userService;
     private final RoleService roleService;
-    private final ClientWialon client;
+    private final WialonService wialonService;
+    private final ItemService itemService;
 
     @RequestMapping("api/v1/apps/auth/login")
     public String getIndex() {
@@ -64,7 +63,6 @@ public class PageController {
     @PreAuthorize("hasRole('ADMIN')")
     public String editUserForm(@PathVariable Long id, Model model) {
         UserDtoOut user = userService.getById(id);
-        List<RoleDto> roles = roleService.getAll();
         model.addAttribute("user", user);
         return "update";
     }
@@ -79,30 +77,15 @@ public class PageController {
     @RequestMapping("/items")
     @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
     public String getAllItems(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null) {
-            String wialonJwt;
-            User user = userService.getByUsername(authentication.getName());
-            for (Role r : user.getRoles()) {
-                if (r.getName().equals("ROLE_USER")) ;
-                {
-                    try {
-                        userService.getTokenWialon(user);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        model.addAttribute("error", e);
-                        if (user.getRoles().get(0).equals("ROLE_ADMIN")) {
-
-                        }
-                        return "error";
-                    }
-                }
-                break;
-            }
-            if (user.getRoles().get(0).equals("ROLE_ADMIN")) {
-
-            }
-
+        try {
+            model = itemService.getAll(model);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            log.error(e.getMessage());
+            model.addAttribute("error", e);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            model.addAttribute("error", e);
+            return "error";
         }
 
         return "items";
