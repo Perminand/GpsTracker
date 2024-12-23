@@ -3,7 +3,6 @@ package ru.perminov.carpool.service.item;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import ru.perminov.carpool.client.ClientWialon;
 import ru.perminov.carpool.dto.item.ItemDto;
 import ru.perminov.carpool.mapper.ItemMapper;
@@ -27,8 +26,9 @@ public class ItemServiceImpl implements ItemService {
     private final ClientWialon clientWialon;
 
     @Override
-    public Model getAll(Model model) throws IOException {
-        List<Item> items = new ArrayList<>();
+    public List<ItemDto> getAll() {
+        List<Car> cars;
+        List<Item> itemsAll = new ArrayList<>();
         User user = userService.getCurrentUser();
 
         for (Role r : user.getRoles()) {
@@ -39,17 +39,27 @@ public class ItemServiceImpl implements ItemService {
                     tokenWialon = user.getTokenWialon();
                 }
 
-                List<Car> cars = clientWialon.getCars(tokenWialon, user);
+                try {
+                    cars = clientWialon.getCars(tokenWialon, user);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 for (Car c : cars) {
-                    items = clientWialon.getItem(tokenWialon, user, c);
+                    List<Item> items = new ArrayList<>();
+                    try {
+                        items = clientWialon.getItem(tokenWialon, user, c);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    itemsAll.addAll(items);
+                    c.setItems(items);
 //                        clientWialon.getSensors(tokenWialon, user, c);
                 }
 
             }
             break;
         }
-        model.addAttribute("items", items);
-        return model;
+        return itemsAll.stream().map(ItemMapper::toDto).toList();
     }
 
     @Override

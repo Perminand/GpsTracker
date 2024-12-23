@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class ItemMapper {
     public static Item toEntity(ItemDto dto) {
         Item item = new Item();
-        item.setDateTime(ZonedDateTime.parse(dto.getDate(), DateTimeFormatter.ISO_DATE_TIME));
+        item.setCreated(ZonedDateTime.parse(dto.getDate(), DateTimeFormatter.ISO_DATE_TIME));
         item.setCar(dto.getCar());
         item.setS(dto.getS());
         item.setP(dto.getP());
@@ -20,7 +20,7 @@ public class ItemMapper {
     public static ItemDto toDto(Item item) {
         return ItemDto.builder()
                 .id(item.getId())
-                .date(item.getDateTime().toString())
+                .date(item.getCreated().toString())
                 .Car(item.getCar())
                 .p(item.getP())
                 .s(item.getS())

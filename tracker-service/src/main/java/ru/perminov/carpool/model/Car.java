@@ -8,6 +8,10 @@ import java.util.List;
 public class Car {
     private Long id;
 
+    private String Name;
+
+    private String number;
+
     private List<Sensors> sensorsList;
 
     private List<Item> items;

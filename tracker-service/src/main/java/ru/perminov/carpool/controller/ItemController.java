@@ -8,6 +8,9 @@ import ru.perminov.carpool.dto.item.ItemDto;
 import ru.perminov.carpool.dto.item.ItemDto2;
 import ru.perminov.carpool.service.item.ItemService;
 
+import java.io.IOException;
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/apps/items")
@@ -27,6 +30,12 @@ public class ItemController {
     public ItemDto create2(@RequestBody ItemDto2 itemDto) {
         log.info("Пришел POST запрос: {}", itemDto);
         return null;
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<ItemDto> getAll() throws IOException {
+        return itemService.getAll();
     }
 
 }

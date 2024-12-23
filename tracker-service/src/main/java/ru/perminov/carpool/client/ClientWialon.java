@@ -234,12 +234,17 @@ public class ClientWialon {
                 for (int i = 0; i < itemsArray.length(); i++) {
                     JSONObject object = itemsArray.getJSONObject(i);
                     long time = object.getLong("t");
+                    JSONObject objectP = object.getJSONObject("p");
+                    long msg_number = objectP.getLong("msg_number");
                     Item item = new Item();
                     Instant instant = Instant.ofEpochSecond(time);
                     ZoneId zoneId = ZoneId.of("UTC");
                     ZonedDateTime zonedDateTime = instant.atZone(zoneId);
-                    item.setDateTime(zonedDateTime);
-
+                    item.setCreated(zonedDateTime);
+                    item.setId(msg_number);
+                    item.setCar(c.getName());
+                    item.setNumber(c.getNumber());
+                    item.setMessage("123");
                     items.add(item);
 
 

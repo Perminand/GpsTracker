@@ -18,9 +18,11 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private ZonedDateTime dateTime;
-    private String Car;
+    private ZonedDateTime created;
+    private String car;
+    private String number;
     private int p;
     private int s;
     private String address;
+    private String message;
 }

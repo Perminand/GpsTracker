@@ -77,16 +77,16 @@ public class PageController {
     @RequestMapping("/items")
     @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
     public String getAllItems(Model model) {
-        try {
-            model = itemService.getAll(model);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            log.error(e.getMessage());
-            model.addAttribute("error", e);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            model.addAttribute("error", e);
-            return "error";
-        }
+//        try {
+//            model = itemService.getAll(model);
+//        } catch (ArrayIndexOutOfBoundsException e) {
+//            log.error(e.getMessage());
+//            model.addAttribute("error", e);
+//        } catch (IOException e) {
+//            log.error(e.getMessage());
+//            model.addAttribute("error", e);
+//            return "error";
+//        }
 
         return "items";
     }
