@@ -8,12 +8,12 @@ import lombok.Data;
 public class ItemDto {
 
     private Long id;
-
-    private String date;
+    private String created;
     private String Car;
     private int t;
     private int p;
     private int s;
     private String address;
+    private String message;
 
 }

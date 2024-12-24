@@ -3,14 +3,37 @@ function createTableFromData(data) {
     const table = document.getElementById('item-table');
     const tbody = table.querySelector('tbody');
 
+    // Сортируем данные по дате в порядке убывания перед созданием таблицы
+    data.sort((a, b) => {
+        const dateA = new Date(a.created);
+        const dateB = new Date(b.created);
+        return dateB - dateA;
+    });
+
     data.forEach(item => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>${item.id}</td>
             <td>${item.created}</td>
             <td>${item.message}</td>
-          `;
+        `;
         tbody.appendChild(tr);
+    });
+
+    // Добавляем сортировку по дате
+    table.addEventListener('click', (event) => {
+        if (event.target.tagName === 'TH') {
+            const table = event.target.closest('table');
+            const rows = table.querySelectorAll('tbody tr');
+
+            // Добавляем сортировку по клику на заголовок
+            const sortedRows = rows.sort((a, b) => {
+                const dateA = new Date(a.querySelector('td').textContent);
+                const dateB = new Date(b.querySelector('td').textContent);
+                return dateB - dateA; // Сортировка по убыванию даты
+            });
+
+            table.tBodies0.replaceChildren(...sortedRows);
+        }
     });
 }
 
@@ -32,7 +55,7 @@ function filterTable(event) {
     const tbody = table.querySelector('tbody');
 
     Array.from(tbody.querySelectorAll('tr')).forEach(row => {
-        const messageCell = row.querySelector('td:nth-child(3)');
+        const messageCell = row.querySelector('td:nth-child(2)');
         const messageText = messageCell.textContent.toLowerCase();
 
         if (messageText.indexOf(filterValue) === -1) {

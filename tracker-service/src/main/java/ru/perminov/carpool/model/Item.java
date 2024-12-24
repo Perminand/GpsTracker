@@ -21,6 +21,8 @@ public class Item {
     private ZonedDateTime created;
     private String car;
     private String number;
+    private String name;
+    private String tp;
     private int p;
     private int s;
     private String address;

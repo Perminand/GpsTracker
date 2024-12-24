@@ -211,7 +211,7 @@ public class ClientWialon {
     public List<Item> getItem(TokenWialon tokenWialon, User user, Car c) throws IOException {
         List<Item> items = new ArrayList<>();
         updateEid(tokenWialon, user);
-        URL url = new URL(HOSTWORK + "/wialon/ajax.html?svc=messages/load_interval&params={\"itemId\":17142323,\"timeFrom\":0,\"timeTo\":0,\"flags\":0,\"flagsMask\":0,\"loadCount\":10}&sid=" + user.getEid().getName());
+        URL url = new URL(HOSTWORK + "/wialon/ajax.html?svc=messages/load_last&params={\"itemId\":" + c.getId() + ",\"lastTime\":0,\"lastCount\":100,\"flags\":0,\"flagsMask\":\"0x0601\",\"loadCount\":100},\"tp\":\"evt\"&sid=" + user.getEid().getName());
 
         final HttpURLConnection con = getHttpURLConnection(url, "");
 
@@ -234,17 +234,18 @@ public class ClientWialon {
                 for (int i = 0; i < itemsArray.length(); i++) {
                     JSONObject object = itemsArray.getJSONObject(i);
                     long time = object.getLong("t");
+                    String tp = object.getString("tp");
                     JSONObject objectP = object.getJSONObject("p");
-                    long msg_number = objectP.getLong("msg_number");
+                    String text = objectP.getString("text");
+                    String name = objectP.getString("name");
                     Item item = new Item();
                     Instant instant = Instant.ofEpochSecond(time);
-                    ZoneId zoneId = ZoneId.of("UTC");
+                    ZoneId zoneId = ZoneId.of("UTC+5");
                     ZonedDateTime zonedDateTime = instant.atZone(zoneId);
                     item.setCreated(zonedDateTime);
-                    item.setId(msg_number);
-                    item.setCar(c.getName());
-                    item.setNumber(c.getNumber());
-                    item.setMessage("123");
+                    item.setName(name);
+                    item.setTp(tp);
+                    item.setMessage(text);
                     items.add(item);
 
 

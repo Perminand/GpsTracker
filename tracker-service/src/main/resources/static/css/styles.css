@@ -80,39 +80,46 @@ footer {
     bottom: 0;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: auto; /* Добавляем свойство для фиксированной ширины столбцов */
-}
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-  overflow: hidden; /* Добавляем скролл для длинных текстов */
-  white-space: nowrap;
-}
+   #item-table {
+              width: 100%;
+              border-collapse: collapse;
+              table-layout: fixed;  /* Фиксированная ширина колонок */
+          }
 
-th {
-  background-color: #4CAF50;
-  color: white;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-}
+          #item-table thead {
+              background-color: #f2f2f2;
+              display: block;  /* Добавляем для возможности прокрутки */
+              width: auto;  /* Устанавливаем ширину для заголовков */
+              position: sticky;  /* Фиксируем заголовки при прокрутке */
+              top: 0;  /* Позиционируем заголовки сверху */
+          }
 
-td {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-}
+          #item-table thead th, #item-table td {
+              padding: 8px;
+              text-align: left;
+              border-bottom: 1px solid #ddd;
+          }
 
-.highlight {
-  background-color: #f4f4f4;
-}
+          #item-table tbody {
+              display: block;
+              overflow-y: auto;
+              max-height: 400px;
+          }
 
-@media (max-width: 768px) { /* Медиа-запрос для изменения стилей при ширине экрана до 768px */
-  th, td {
-    width: 250px; /* Устанавливаем фиксированную ширину ячеек */
-  }
-}
+          #item-table thead tr {
+           background-color: #4CAF50;
+           color: white;
+           font-weight: bold;
+           display: table; /* Растягиваем на всю ширину родительского */
+           width: 100%; /* Устанавливаем ширину на всю таблицу */
+           }
 
+          #item-table thead th {
+              padding-top: 12px;
+              padding-bottom: 12px;
+          }
+
+          #item-table th {
+              width: auto;  /* Устанавливаем ширину для заголовков колонок */
+          }

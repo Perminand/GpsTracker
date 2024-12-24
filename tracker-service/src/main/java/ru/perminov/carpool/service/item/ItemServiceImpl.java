@@ -13,6 +13,7 @@ import ru.perminov.carpool.service.wialon.WialonService;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,25 +42,23 @@ public class ItemServiceImpl implements ItemService {
 
                 try {
                     cars = clientWialon.getCars(tokenWialon, user);
+                    for (Car c : cars) {
+                        List<Item> items;
+                        items = clientWialon.getItem(tokenWialon, user, c);
+                        itemsAll.addAll(items);
+                        c.setItems(items);
+                        }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                for (Car c : cars) {
-                    List<Item> items = new ArrayList<>();
-                    try {
-                        items = clientWialon.getItem(tokenWialon, user, c);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    itemsAll.addAll(items);
-                    c.setItems(items);
-//                        clientWialon.getSensors(tokenWialon, user, c);
-                }
-
             }
             break;
         }
-        return itemsAll.stream().map(ItemMapper::toDto).toList();
+        return itemsAll.stream().filter(item -> item.getName().equals("Температура 10-90")).sorted((item1, item2) -> {
+            ZonedDateTime dt1 = item1.getCreated();
+            ZonedDateTime dt2 = item2.getCreated();
+            return dt2.compareTo(dt1); // Сортировка по убыванию даты
+        }).map(ItemMapper::toDto).toList();
     }
 
     @Override
