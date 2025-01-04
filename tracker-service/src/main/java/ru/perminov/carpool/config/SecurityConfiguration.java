@@ -1,4 +1,4 @@
-package ru.perminov.carpool.security;
+package ru.perminov.carpool.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import ru.perminov.carpool.security.JwtAuthenticationFilter;
+import ru.perminov.carpool.security.UserSecurityService;
 
 import java.util.List;
 

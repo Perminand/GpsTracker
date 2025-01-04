@@ -3,6 +3,7 @@ package ru.perminov.carpool.service.user;
 import ru.perminov.carpool.dto.users.UserDtoForItems;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.dto.users.UserDtoWeb;
+import ru.perminov.carpool.model.Company;
 import ru.perminov.carpool.model.User;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface UserService {
     void create(User user);
 
     User getCurrentUser();
+
+    Company getCompany();
 }

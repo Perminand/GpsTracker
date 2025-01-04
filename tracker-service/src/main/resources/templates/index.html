@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Wheels</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px; /* Расстояние между основными прямоугольниками */
+        }
+        .top-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Расстояние между боковыми прямоугольниками */
+            position: relative;
+        }
+        .small-rectangle {
+            width: 25px; /* Половина ширины квадрата */
+            height: 50px; /* Половина высоты квадрата */
+            background-color: #FF5722;
+        }
+        .elongated-rectangle {
+            width: 100px; /* Ширина квадрата */
+            height: 200px; /* Удлиненная высота (вдвое больше квадрата) */
+            background-color: #4CAF50;
+            position: relative;
+        }
+        .rear-wheels {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            width: 100%; /* Ширина контейнера для колес */
+            bottom: 0; /* Нижний край колес на уровне нижнего края прямоугольника */
+            left: 0;
+        }
+        .rear-wheel {
+            width: 25px;
+            height: 50px;
+            background-color: #FF5722;
+        }
+        .rear-wheel-left {
+            position: relative;
+            left: -40px; /* Отодвигаем левое колесо в сторону на 40px */
+        }
+        .rear-wheel-right {
+            position: relative;
+            right: -40px; /* Отодвигаем правое колесо в сторону на 40px */
+        }
+        .rectangle {
+            width: 100px;
+            height: 200px; /* В два раза больше исходной высоты квадрата */
+            background-color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="top-row">
+        <div class="small-rectangle"></div>
+        <div class="elongated-rectangle">
+            <div class="rear-wheels">
+                <div class="rear-wheel rear-wheel-left"></div>
+                <div class="rear-wheel rear-wheel-right"></div>
+            </div>
+        </div>
+        <div class="small-rectangle"></div>
+    </div>
+    <div class="rectangle"></div>
+</div>
+<footer>
+    <div class="container">
+        <p>Вы вошли в систему как администратор?</p>
+        <c:if test="${user.authorities.contains('ROLE_ADMIN')}">
+            <button class="btn btn-primary" onclick="redirectToAdminPage()" type="button">Кнопка администратора</button>
+        </c:if>
+        <button class="btn btn-danger" id="logout-button" type="button">Выйти</button>
+        <p>&copy; 2024 Perminov production</p>
+    </div>
+</footer>
+</body>
+</html>

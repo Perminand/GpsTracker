@@ -45,6 +45,7 @@ async function loadData() {
     }
     const data = await response.json();
     createTableFromData(data);
+    document.getElementById('loading-progress').classList.remove('hidden');
 }
 
 // Функция для фильтрации строк таблицы

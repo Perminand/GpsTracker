@@ -18,7 +18,7 @@ services:
     build: tracker-service
     container_name: tracker-service
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       - users-db
     environment:

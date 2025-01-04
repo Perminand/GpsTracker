@@ -69,6 +69,14 @@ button[type="submit"]:hover {
     color: white;
 }
 
+.hidden {
+ display: none;
+}
+
+.visible {
+ display: block;
+}
+
 /* Подвал */
 footer {
     text-align: center;

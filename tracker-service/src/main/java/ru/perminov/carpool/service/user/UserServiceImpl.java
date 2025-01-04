@@ -10,6 +10,7 @@ import ru.perminov.carpool.dto.users.UserDtoWeb;
 import ru.perminov.carpool.exceptions.errors.ConflictException;
 import ru.perminov.carpool.exceptions.errors.EntityNotFoundException;
 import ru.perminov.carpool.mapper.UserMapper;
+import ru.perminov.carpool.model.Company;
 import ru.perminov.carpool.model.Role;
 import ru.perminov.carpool.model.TokenAccess;
 import ru.perminov.carpool.model.User;
@@ -130,6 +131,11 @@ public class UserServiceImpl implements UserService {
         // Получение имени пользователя из контекста Spring Security
         var username = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByUsername(username);
+    }
+
+    @Override
+    public Company getCompany() {
+        return userRepository.getCompanyByUsername(getCurrentUser());
     }
 
 }

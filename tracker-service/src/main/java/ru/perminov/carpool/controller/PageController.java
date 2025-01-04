@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.perminov.carpool.dto.role.RoleDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
+import ru.perminov.carpool.model.Company;
 import ru.perminov.carpool.service.item.ItemService;
 import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
@@ -71,6 +72,14 @@ public class PageController {
     @PreAuthorize("hasRole('ADMIN')")
     public String getError(Model model) {
         return "error";
+    }
+
+    @RequestMapping("/company")
+    @PreAuthorize("hasRole('USER')")
+    public String getCompany(Model model) {
+        Company company = userService.getCompany();
+        model.addAttribute("company", company);
+        return "company";
     }
 
 

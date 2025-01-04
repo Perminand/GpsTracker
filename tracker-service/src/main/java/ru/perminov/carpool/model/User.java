@@ -49,6 +49,8 @@ public class User implements UserDetails {
     @OneToOne
     private Eid eid;
 
+    @ManyToOne
+    private Company company;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

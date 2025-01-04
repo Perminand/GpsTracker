@@ -1,4 +1,4 @@
-FROM xubuntu
+FROM docker.io/hectorm/xubuntu:latest
 
 RUN apt update && apt install -y wget ca-certificates
 

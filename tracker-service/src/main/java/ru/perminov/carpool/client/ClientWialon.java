@@ -75,8 +75,8 @@ public class ClientWialon {
         System.setProperty("webdriver.chrome.driver", chromedriver.getAbsolutePath());
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--disable-gpu");
+//        options.addArguments("--headless");
+//        options.addArguments("--disable-gpu");
         WebDriver driver = new ChromeDriver(options);
 
 
