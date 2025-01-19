@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -8,8 +8,7 @@
     <script src="/js/auth.js"></script>
  </head>
 <body>
-<header> <h1>Вход в систему</h1>
-</header>
+<header th:replace="fragments/base::header"></header>
 <main>
     <div class="container">
         <form action="/api/v1/apps/auth/login" id="form" method="post">
@@ -21,6 +20,7 @@
            </form>
     </div>
 </main>
-<footer><p>&copy; 2024 Perminov production</p></footer>
+<footer th:replace="fragments/footer::footer"></footer>
+
 </body>
 </html>

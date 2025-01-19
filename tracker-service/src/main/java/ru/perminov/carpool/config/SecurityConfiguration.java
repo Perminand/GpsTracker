@@ -65,6 +65,7 @@ public class SecurityConfiguration {
                         new LoginUrlAuthenticationEntryPoint(LOGIN_PAGE)
                 ));
 
+
         return http.build();
     }
 

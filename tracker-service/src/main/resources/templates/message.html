@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="ru" xmlns:c="http://www.w3.org/1999/XSL/Transform" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:replace="fragments/base::title"></title>
+        <link href="/css/styles.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+<body>
+    <header th:replace="fragments/base::header"></header>
+    <div>
+        <!-- Боковое меню -->
+        <aside th:replace="fragments/aside::aside">
+          <c:if test="${user.authorities.contains('ROLE_ADMIN')}">
+            <li><a href="#message">Администрирование</a></li>
+            </c:if>
+        </aside>
+        <main>
+            <div class="container">
+                <h1>Таблица с данными</h1>
+                <input type="text" id="message-filter" placeholder="Введите сообщение для фильтрации">
+                <table id="item-table">
+                    <thead>
+                    <tr>
+                        <th>Дата создания</th>
+                        <th>Сообщение</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Здесь будут добавлены данные -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    <footer th:replace="fragments/footerAdmin::footer"></footer>
+<script src="/js/logout.js"></script>
+<script src="/js/items.js"></script>
+</div>
+</body>
+</html>

@@ -9,9 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.perminov.carpool.dto.item.ItemDto;
 import ru.perminov.carpool.dto.role.RoleDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.model.Company;
+import ru.perminov.carpool.model.User;
 import ru.perminov.carpool.service.item.ItemService;
 import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
@@ -75,7 +77,7 @@ public class PageController {
     }
 
     @RequestMapping("/company")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')||hasRole('ADMIN')")
     public String getCompany(Model model) {
         Company company = userService.getCompany();
         model.addAttribute("company", company);
@@ -83,20 +85,20 @@ public class PageController {
     }
 
 
-    @RequestMapping("/items")
+    @RequestMapping("/message")
     @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
     public String getAllItems(Model model) {
-//        try {
-//            model = itemService.getAll(model);
-//        } catch (ArrayIndexOutOfBoundsException e) {
-//            log.error(e.getMessage());
-//            model.addAttribute("error", e);
-//        } catch (IOException e) {
-//            log.error(e.getMessage());
-//            model.addAttribute("error", e);
-//            return "error";
-//        }
-
+        try {
+            List<ItemDto> items = itemService.getAll();
+            model.addAttribute("items", items);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            log.error(e.getMessage());
+            model.addAttribute("error", e);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            model.addAttribute("error", e);
+            return "error";
+        }
         return "items";
     }
 

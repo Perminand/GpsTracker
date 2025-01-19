@@ -135,7 +135,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Company getCompany() {
-        return userRepository.getCompanyByUsername(getCurrentUser());
+        String username = getCurrentUser().getUsername();
+        return userRepository.getCompanyByUsername(username).orElse(null);
     }
 
 }

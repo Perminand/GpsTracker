@@ -14,9 +14,52 @@ header {
     text-align: center;
 }
 
+/* Стили для sidebar */
+.sidebar {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    left: 0;
+    background-color: #333; /* Black */
+    color: white;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+.sidebar a {
+    padding: 6px 8px 6px 16px;
+    color: white; /* Цвет текста ссылок */
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+}
+
+.sidebar a:hover {
+    color: yellow; /* Цвет текста ссылок при наведении */
+}
+
+.menu {
+    weight 100%
+}
+
+/* Стили для пунктов меню */
+.menu li {
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white; /* Цвет текста ссылок в пунктах меню */
+    font-size: 14px;
+    display: block;
+}
+
 /* Основной контент */
 main {
-    padding: 20px;
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
     min-height: 200px;
     background-color: white;
     border: 1px solid #ddd;
@@ -70,11 +113,11 @@ button[type="submit"]:hover {
 }
 
 .hidden {
- display: none;
+    display: none;
 }
 
 .visible {
- display: block;
+    display: block;
 }
 
 /* Подвал */
@@ -87,47 +130,51 @@ footer {
     width: 100%;
     bottom: 0;
 }
+#item-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;  /* Фиксированная ширина колонок */
+}
 
+#item-table thead {
+    background-color: #f2f2f2;
+    display: block;  /* Добавляем для возможности прокрутки */
+    width: auto;  /* Устанавливаем ширину для заголовков */
+    position: sticky;  /* Фиксируем заголовки при прокрутке */
+    top: 0;  /* Позиционируем заголовки сверху */
+}
 
-   #item-table {
-              width: 100%;
-              border-collapse: collapse;
-              table-layout: fixed;  /* Фиксированная ширина колонок */
-          }
+#item-table thead th, #item-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
 
-          #item-table thead {
-              background-color: #f2f2f2;
-              display: block;  /* Добавляем для возможности прокрутки */
-              width: auto;  /* Устанавливаем ширину для заголовков */
-              position: sticky;  /* Фиксируем заголовки при прокрутке */
-              top: 0;  /* Позиционируем заголовки сверху */
-          }
+#item-table tbody {
+    display: block;
+    overflow-y: auto;
+    max-height: 400px;
+}
 
-          #item-table thead th, #item-table td {
-              padding: 8px;
-              text-align: left;
-              border-bottom: 1px solid #ddd;
-          }
+#item-table thead tr {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    display: table; /* Растягиваем на всю ширину родительского */
+    width: 100%; /* Устанавливаем ширину на всю таблицу */
+}
 
-          #item-table tbody {
-              display: block;
-              overflow-y: auto;
-              max-height: 400px;
-          }
+#item-table thead th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
 
-          #item-table thead tr {
-           background-color: #4CAF50;
-           color: white;
-           font-weight: bold;
-           display: table; /* Растягиваем на всю ширину родительского */
-           width: 100%; /* Устанавливаем ширину на всю таблицу */
-           }
+#item-table th {
+    width: auto;  /* Устанавливаем ширину для заголовков колонок */
+}
 
-          #item-table thead th {
-              padding-top: 12px;
-              padding-bottom: 12px;
-          }
-
-          #item-table th {
-              width: auto;  /* Устанавливаем ширину для заголовков колонок */
-          }
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+}
