@@ -1,6 +1,6 @@
 // Функция для создания таблицы из данных JSON
 function createTableFromData(data) {
-    const table = document.getElementById('item-table');
+    const table = document.getElementById('message-table');
     const tbody = table.querySelector('tbody');
 
     // Сортируем данные по дате в порядке убывания перед созданием таблицы
@@ -10,11 +10,11 @@ function createTableFromData(data) {
         return dateB - dateA;
     });
 
-    data.forEach(item => {
+    data.forEach(message => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>${item.created}</td>
-            <td>${item.message}</td>
+            <td>${message.created}</td>
+            <td>${message.message}</td>
         `;
         tbody.appendChild(tr);
     });
@@ -39,7 +39,7 @@ function createTableFromData(data) {
 
 // Функция для загрузки данных JSON с помощью GET запроса
 async function loadData() {
-    const response = await fetch('/api/v1/apps/items');
+    const response = await fetch('/api/v1/apps/messages');
     if (!response.ok) {
         throw new Error('Ошибка при загрузке данных');
     }
@@ -52,7 +52,7 @@ async function loadData() {
 function filterTable(event) {
     const filterInput = document.getElementById('message-filter');
     const filterValue = filterInput.value.toLowerCase();
-    const table = document.getElementById('item-table');
+    const table = document.getElementById('message-table');
     const tbody = table.querySelector('tbody');
 
     Array.from(tbody.querySelectorAll('tr')).forEach(row => {

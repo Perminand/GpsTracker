@@ -1,6 +1,6 @@
 package ru.perminov.carpool.mapper;
 
-import ru.perminov.carpool.dto.users.UserDtoForItems;
+import ru.perminov.carpool.dto.users.UserDtoForMessages;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.dto.users.UserDtoWeb;
 import ru.perminov.carpool.model.User;
@@ -30,7 +30,7 @@ public class UserMapper {
                 .build();
     }
 
-    public static UserDtoForItems toDtoForItems(User user) {
-        return UserDtoForItems.builder().username(user.getUsername()).roles(user.getRoles()).build();
+    public static UserDtoForMessages toDtoForMessages(User user) {
+        return UserDtoForMessages.builder().username(user.getUsername()).roles(user.getRoles()).build();
     }
 }

@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 @Data
 @Entity
 @NoArgsConstructor
-public class Item {
+public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

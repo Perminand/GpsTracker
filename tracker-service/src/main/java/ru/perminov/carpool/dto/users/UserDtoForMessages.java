@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class UserDtoForItems {
+public class UserDtoForMessages {
     private String username;
     private List<Role> roles;
 }

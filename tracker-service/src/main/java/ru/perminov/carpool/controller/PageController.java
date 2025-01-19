@@ -9,12 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.perminov.carpool.dto.item.ItemDto;
+import ru.perminov.carpool.dto.message.MessageDto;
 import ru.perminov.carpool.dto.role.RoleDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.model.Company;
-import ru.perminov.carpool.model.User;
-import ru.perminov.carpool.service.item.ItemService;
+import ru.perminov.carpool.service.message.MessageService;
 import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
 import ru.perminov.carpool.service.wialon.WialonService;
@@ -30,7 +29,7 @@ public class PageController {
     private final UserService userService;
     private final RoleService roleService;
     private final WialonService wialonService;
-    private final ItemService itemService;
+    private final MessageService messageService;
 
     @RequestMapping("api/v1/apps/auth/login")
     public String getIndex() {
@@ -87,10 +86,10 @@ public class PageController {
 
     @RequestMapping("/message")
     @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
-    public String getAllItems(Model model) {
+    public String getAllMessage(Model model) {
         try {
-            List<ItemDto> items = itemService.getAll();
-            model.addAttribute("items", items);
+            List<MessageDto> messages = messageService.getAll();
+            model.addAttribute("messages", messages);
         } catch (ArrayIndexOutOfBoundsException e) {
             log.error(e.getMessage());
             model.addAttribute("error", e);
@@ -99,7 +98,7 @@ public class PageController {
             model.addAttribute("error", e);
             return "error";
         }
-        return "items";
+        return "message";
     }
 
 

@@ -14,7 +14,7 @@ public class Car {
 
     private List<Sensors> sensorsList;
 
-    private List<Item> items;
+    private List<Message> messages;
 
     public Car(Long id) {
         this.id = id;

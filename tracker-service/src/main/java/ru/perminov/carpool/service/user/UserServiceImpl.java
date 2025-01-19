@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.perminov.carpool.dto.users.UserDtoForItems;
+import ru.perminov.carpool.dto.users.UserDtoForMessages;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.dto.users.UserDtoWeb;
 import ru.perminov.carpool.exceptions.errors.ConflictException;
@@ -108,8 +108,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDtoForItems getUserDtoByUsername(String name) {
-        return UserMapper.toDtoForItems(userRepository.findByUsername(name).orElseThrow(()-> new EntityNotFoundException("Пользователь не найден")));
+    public UserDtoForMessages getUserDtoByUsername(String name) {
+        return UserMapper.toDtoForMessages(userRepository.findByUsername(name).orElseThrow(()-> new EntityNotFoundException("Пользователь не найден")));
     }
 
 

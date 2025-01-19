@@ -1,11 +1,11 @@
-package ru.perminov.carpool.dto.item;
+package ru.perminov.carpool.dto.message;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ItemDto {
+public class MessageDto {
 
     private Long id;
     private String created;

@@ -1,6 +1,6 @@
 package ru.perminov.carpool.service.user;
 
-import ru.perminov.carpool.dto.users.UserDtoForItems;
+import ru.perminov.carpool.dto.users.UserDtoForMessages;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.dto.users.UserDtoWeb;
 import ru.perminov.carpool.model.Company;
@@ -17,7 +17,7 @@ public interface UserService {
 
     UserDtoOut getById(Long id);
 
-    UserDtoForItems getUserDtoByUsername(String name);
+    UserDtoForMessages getUserDtoByUsername(String name);
 
     User getByUsername(String username);
 

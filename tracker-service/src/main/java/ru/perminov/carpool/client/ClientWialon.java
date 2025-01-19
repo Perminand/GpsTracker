@@ -132,14 +132,14 @@ public class ClientWialon {
                 String urlOut = con.getURL().toString();
                 System.out.println(con.getURL());
                 JSONObject jsonObject = new JSONObject(jsonResponse);
-                JSONArray itemsArray = jsonObject.getJSONArray("items");
+                JSONArray messageArray = jsonObject.getJSONArray("items");
 
-                List<JSONObject> items = new ArrayList<>();
+                List<JSONObject> messages = new ArrayList<>();
                 // Получаем машины
-                for (int i = 0; i < itemsArray.length(); i++) {
-                    JSONObject item = itemsArray.getJSONObject(i);
-                    items.add(item);
-                    long id = item.getLong("id");
+                for (int i = 0; i < messageArray.length(); i++) {
+                    JSONObject message = messageArray.getJSONObject(i);
+                    messages.add(message);
+                    long id = message.getLong("id");
                     cars.add(new Car(id));
                 }
                 user.getEid().setCount(user.getEid().getCount() + 1);
@@ -197,8 +197,8 @@ public class ClientWialon {
                 String jsonResponse = new String(is.readAllBytes());
                 System.out.println(con.getURL());
                 JSONObject jsonObject = new JSONObject(jsonResponse);
-                JSONObject jsonItems = jsonObject.getJSONObject("item");
-                JSONObject jsonSens = jsonItems.getJSONObject("sens");
+                JSONObject jsonMessages = jsonObject.getJSONObject("item");
+                JSONObject jsonSens = jsonMessages.getJSONObject("sens");
 
 
                 List<JSONObject> sens = new ArrayList<>();
@@ -208,8 +208,8 @@ public class ClientWialon {
         }
     }
 
-    public List<Item> getItem(TokenWialon tokenWialon, User user, Car c) throws IOException {
-        List<Item> items = new ArrayList<>();
+    public List<Message> getMessage(TokenWialon tokenWialon, User user, Car c) throws IOException {
+        List<Message> messages = new ArrayList<>();
         updateEid(tokenWialon, user);
         URL url = new URL(HOSTWORK + "/wialon/ajax.html?svc=messages/load_last&params={\"itemId\":" + c.getId() + ",\"lastTime\":0,\"lastCount\":100,\"flags\":0,\"flagsMask\":\"0x0601\",\"loadCount\":100},\"tp\":\"evt\"&sid=" + user.getEid().getName());
 
@@ -227,33 +227,33 @@ public class ClientWialon {
                 String jsonResponse = new String(is.readAllBytes());
 
                 JSONObject jsonObject = new JSONObject(jsonResponse);
-                JSONArray itemsArray = jsonObject.getJSONArray("messages");
+                JSONArray messagesArray = jsonObject.getJSONArray("messages");
 
                 List<JSONObject> jsonObjectList = new ArrayList<>();
                 // Получаем сообщения
-                for (int i = 0; i < itemsArray.length(); i++) {
-                    JSONObject object = itemsArray.getJSONObject(i);
+                for (int i = 0; i < messagesArray.length(); i++) {
+                    JSONObject object = messagesArray.getJSONObject(i);
                     long time = object.getLong("t");
                     String tp = object.getString("tp");
                     JSONObject objectP = object.getJSONObject("p");
                     String text = objectP.getString("text");
                     String name = objectP.getString("name");
-                    Item item = new Item();
+                    Message message = new Message();
                     Instant instant = Instant.ofEpochSecond(time);
                     ZoneId zoneId = ZoneId.of("UTC+5");
                     ZonedDateTime zonedDateTime = instant.atZone(zoneId);
-                    item.setCreated(zonedDateTime);
-                    item.setName(name);
-                    item.setTp(tp);
-                    item.setMessage(text);
-                    items.add(item);
+                    message.setCreated(zonedDateTime);
+                    message.setName(name);
+                    message.setTp(tp);
+                    message.setMessage(text);
+                    messages.add(message);
 
 
                 }
             }
         }
         user.getEid().setCount(user.getEid().getCount() + 1);
-        c.setItems(items);
-        return items;
+        c.setMessages(messages);
+        return messages;
     }
 }

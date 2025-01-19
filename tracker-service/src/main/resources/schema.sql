@@ -49,7 +49,7 @@ create TABLE IF NOT EXISTS users_roles (
     PRIMARY KEY (user_id, roles_id)
 );
 
-create table IF NOT EXISTS item (
+create table IF NOT EXISTS message (
         p integer not null,
         s integer not null,
         t integer not null,
