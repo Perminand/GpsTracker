@@ -169,7 +169,7 @@ footer {
     padding-bottom: 12px;
 }
 
-#message-table th {
+#item-table th {
     width: auto;  /* Устанавливаем ширину для заголовков колонок */
 }
 

@@ -46,7 +46,6 @@ public class ClientWialon {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
         ClientWialon clientWialon = new ClientWialon();
-
     }
 
     private static HttpURLConnection getHttpURLConnection(URL url, String params) throws IOException {
@@ -113,8 +112,7 @@ public class ClientWialon {
         return accessToken;
     }
 
-    public List<Car> getCars(TokenWialon token, User user) throws IOException {
-        List<Car> cars = new ArrayList<>();
+    private JSONArray getArray(TokenWialon token, User user) throws IOException {
 
         updateEid(token, user);
         URL url = new URL(HOSTWORK + "/wialon/ajax.html?svc=core/search_items&sid=" + user.getEid().getName() + "&params={\"spec\":{\"itemsType\":\"avl_unit\",\"propName\":\"profilefield\",\"propValueMask\":\"*\",\"sortType\":\"profilefield\"},\"force\":1,\"flags\":\"4611686018427387903\",\"from\":0,\"to\":0}");
@@ -129,27 +127,49 @@ public class ClientWialon {
             try (InputStreamReader isr = new InputStreamReader(con.getInputStream());
                  InputStream is = con.getInputStream()) {
                 String jsonResponse = new String(is.readAllBytes());
-                String urlOut = con.getURL().toString();
-                System.out.println(con.getURL());
                 JSONObject jsonObject = new JSONObject(jsonResponse);
-                JSONArray messageArray = jsonObject.getJSONArray("items");
+                JSONArray itemsArray = jsonObject.getJSONArray("items");
+                return itemsArray;
 
-                List<JSONObject> messages = new ArrayList<>();
-                // Получаем машины
-                for (int i = 0; i < messageArray.length(); i++) {
-                    JSONObject message = messageArray.getJSONObject(i);
-                    messages.add(message);
-                    long id = message.getLong("id");
-                    cars.add(new Car(id));
-                }
-                user.getEid().setCount(user.getEid().getCount() + 1);
-                return cars;
             }
         } else {
             System.out.println("Ошибка: Не удалось получить ответ.");
         }
 
         return null;
+    }
+
+    public List<Car> getCars(TokenWialon token, User user) throws IOException {
+        List<Car> cars = new ArrayList<>();
+        JSONArray itemsArray = getArray(token, user);
+        // Получаем машины
+        for (int i = 0; i < itemsArray.length(); i++) {
+            JSONObject item = itemsArray.getJSONObject(i);
+            long id = item.getLong("id");
+            Car car = new Car(id);
+            car.setFullName(item.getString("nm"));
+            JSONObject pflds = item.getJSONObject("pflds");
+            car.setName(pflds.getJSONObject("1").getString("v"));
+            car.setModel(pflds.getJSONObject("2").getString("v"));
+            car.setYear(pflds.getJSONObject("3").getString("v"));
+            car.setColor(pflds.getJSONObject("4").getString("v"));
+            car.setEngineModel(pflds.getJSONObject("5").getString("v"));
+            car.setEnginePower(pflds.getJSONObject("6").getString("v"));
+            car.setPrimaryFuelType(pflds.getJSONObject("7").getString("v"));
+            car.setVehicleType(pflds.getJSONObject("8").getString("v"));
+            car.setVehicleClass(pflds.getJSONObject("9").getString("v"));
+//            List<Sensor> sensors = getSensors();
+            cars.add(car);
+
+        }
+        user.getEid().setCount(user.getEid().getCount() + 1);
+        return cars;
+    }
+
+    public void getItems(TokenWialon token, User user) throws IOException {
+        JSONArray itemsArray = getArray(token, user);
+
+        System.out.println(itemsArray);
     }
 
     private void updateEid(TokenWialon token, User user) throws IOException {
@@ -180,7 +200,7 @@ public class ClientWialon {
     }
 
     public void getSensors(TokenWialon tokenWialon, User user, Car c) throws IOException {
-        List<Sensors> sensorsList = new ArrayList<>();
+        List<Sensor> sensorList = new ArrayList<>();
 
         updateEid(tokenWialon, user);
         URL url = new URL(HOSTWORK + "/wialon/ajax.html?svc=core/search_item&params={\"id\":\"" + c.getId() + "\",\"flags\":4096}&sid=" + user.getEid().getName());

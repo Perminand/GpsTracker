@@ -10,9 +10,29 @@ public class Car {
 
     private String Name;
 
+    private String model;
+
+    private String year;
+
+    private String color;
+
+    private String engineModel;
+
+    private String enginePower;
+
+    private String primaryFuelType;
+
+    private String vehicleType;
+
+    private String vehicleClass;
+
+    private String fullName;
+
+    private List<Sensor> sensors;
+
     private String number;
 
-    private List<Sensors> sensorsList;
+    private List<Sensor> sensorList;
 
     private List<Message> messages;
 

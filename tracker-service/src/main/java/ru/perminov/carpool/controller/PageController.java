@@ -13,10 +13,10 @@ import ru.perminov.carpool.dto.message.MessageDto;
 import ru.perminov.carpool.dto.role.RoleDto;
 import ru.perminov.carpool.dto.users.UserDtoOut;
 import ru.perminov.carpool.model.Company;
+import ru.perminov.carpool.service.item.ItemService;
 import ru.perminov.carpool.service.message.MessageService;
 import ru.perminov.carpool.service.role.RoleService;
 import ru.perminov.carpool.service.user.UserService;
-import ru.perminov.carpool.service.wialon.WialonService;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,8 +28,8 @@ import java.util.List;
 public class PageController {
     private final UserService userService;
     private final RoleService roleService;
-    private final WialonService wialonService;
     private final MessageService messageService;
+    private final ItemService itemService;
 
     @RequestMapping("api/v1/apps/auth/login")
     public String getIndex() {
@@ -86,7 +86,7 @@ public class PageController {
 
     @RequestMapping("/message")
     @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
-    public String getAllMessage(Model model) {
+    public String getMessages(Model model) {
         try {
             List<MessageDto> messages = messageService.getAll();
             model.addAttribute("messages", messages);
@@ -99,6 +99,20 @@ public class PageController {
             return "error";
         }
         return "message";
+    }
+
+    @RequestMapping("/items")
+    @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
+    public String getItems(Model model) {
+        try {
+            itemService.getInfo();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            log.error(e.getMessage());
+            model.addAttribute("error", e);
+        } catch (IOException e) {
+            model.addAttribute("error", e);
+        }
+        return "items";
     }
 
 
